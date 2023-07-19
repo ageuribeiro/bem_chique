@@ -1,2 +1,2 @@
-# http_bemchique_com
+# bem_chique
  E-commerce de roupas feminina
