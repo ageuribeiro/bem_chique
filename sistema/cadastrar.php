@@ -39,7 +39,7 @@ $res = $pdo->query("SELECT * FROM usuarios where cpf = '$_POST[cpf]'");
 $dados = $res->fetchAll(PDO::FETCH_ASSOC);
 if(@count($dados) == 0){
 
-	$res = $pdo->prepare("INSERT into usuarios (nome, cpf, email, senha, senha_crip, nivel) values (:nome, :cpf, :email, :senha, :senha_crip, :nivel)");
+	$res = $pdo->prepare("INSERT into usuarios (nome, cpf, email, senha, senha_cripto, nivel) values (:nome, :cpf, :email, :senha, :senha_crip, :nivel)");
 	$res->bindValue(":nome", $nome);
 	$res->bindValue(":email", $email);
 	$res->bindValue(":cpf", $cpf);

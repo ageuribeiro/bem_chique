@@ -91,7 +91,9 @@
 <script type="text/javascript">
     $('#btn-enviar-email').click(function(event){
         event.preventDefault();
-        $('#div-mensagem').addClass('text-secondary');
+        $('#div-mensagem').addClass('text-info');
+        $('#div-mensagem').removeClass('text-danger');
+        $('#div-mensagem').removeClass('text-success');
         $('#div-mensagem').text('Enviando...');
         $.ajax({
             url:"enviar.php",
@@ -99,20 +101,30 @@
             data:$('form').serialize(),
             dataType:"text",
             success: function(msg){
-                if(msg.trim()==='Enviado com Sucesso!'){
+                if(msg.trim() === 'Enviado com Sucesso!'){
+                    $('#div-mensagem').addClass('text-info');
                     $('#div-mensagem').addClass('text-success');
                     $('#div-mensagem').text(msg);
                     $('#nome').val('');
                     $('#email').val('');
                     $('#telefone').val('');
                     $('#mensagem').val('');
-                }else{
+                }
+                else if(msg.trim() === 'Prencha o campo nome.'){
+                    $('#div-mensagem').addClass('text-danger');
+                    $('#div-mensagem').text(msg);
+                }
+                else if(msg.trim() === 'Prencha o campo email.'){
+                    $('#div-mensagem').addClass('text-danger');
+                    $('#div-mensagem').text(msg);
+                }
+                else{
+                    $('#div-mensagem').removeClass('text-info');
                     $('#div-mensagem').addClass('text-danger');
                     $('#div-mensagem').text('Erro na tentativa de envio do formulário.\n\r Provavelmente seu servidor de hospedagem não está habilitado ou você está em um servidor local.');
                     //$('#div-mensagem').text(msg);
                 }
             }
         });
-        
     });    
 </script>
