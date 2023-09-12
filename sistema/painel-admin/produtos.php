@@ -1,17 +1,19 @@
-<?php 
-    $pag = "categorias";
+<?php
+    $pag = "produtos";
     require_once("../../conexao.php"); 
     @session_start();
         //verificar se o usuário está autenticado
     if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
         echo "<script language='javascript'> window.location='../index.php' </script>";
-    }
+    
+    } 
 ?>
 
 <div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria <i class="fa fa-plus"></i></a>
+    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Produto <i class="fa fa-plus"></i></a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
 </div>
+
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -20,10 +22,9 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th class="text-center">Nome</th>
-                        <th class="text-center">Imagem</th>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Ações</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,11 +41,11 @@
                             $decricao = $res[$i]['descricao'];
                     ?>
                     <tr>
-                        <td class="text-center"><?php echo $nome ?></td>
-                        <td class="text-center"><img src="img/categorias/<?php echo $imagem ?>" width="50"></td>
-                        <td class="text-center"><?php echo $decricao ?></td>
-                        <td class="text-center">
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
+                        <td><?php echo $nome ?></td>
+                        <td><?php echo $decricao ?></td>
+                        <!-- <td><img src="../../img/categorias/<?php # echo $imagem ?>" width="50"></td> -->
+                        <td>
+                             <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
                             <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
                         </td>
                     </tr>
@@ -70,12 +71,11 @@
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     $nome2 = $res[0]['nome'];
-                    $descricao2 = $res[0]['descricao'];
                     $imagem2 = $res[0]['imagem'];
                 } 
                 else 
                 {
-                    $titulo = "Registrar Categoria";
+                    $titulo = "Inserir Registro";
                 }
                 ?>
                 
@@ -87,22 +87,18 @@
             <form id="form" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="nome-categoria">Nome</label>
-                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-categoria" name="nome-categoria" placeholder="Nome">
+                        <label >Nome</label>
+                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-cat" name="nome-cat" placeholder="Nome">
                     </div>
                     <div class="form-group">
-                        <label for="descricao-categoria">Descrição</label>
-                        <input value="<?php echo @$descricao2 ?>" type="text" class="form-control" id="descricao-categoria" name="descricao-categoria" placeholder="Descrição">
-                    </div>
-                    <div class="form-group">
-                        <label for="imagem-categoria">Imagem</label>
-                        <input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem-categoria" name="imagem-categoria" onChange="carregarImg();">
+                        <label >Imagem</label>
+                        <input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
                     </div>
 
                     <?php if(@$imagem2 != ""){ ?>
-                    	 <img src="../../img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target" class="rounded">
+                    	 <img src="../../img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target">
                  	<?php  }else{ ?>
-                    <img src="../../img/categorias/sem-foto.jpg" width="200" height="200" id="target" class="rounded">
+                    <img src="../../img/categorias/sem-foto.jpg" width="200" height="200" id="target">
                 	<?php } ?>
                     <small>
                         <div id="mensagem"></div>
@@ -285,16 +281,11 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 </script>
 
-
-
-
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#dataTable').dataTable({
             "ordering": false
-        })
-
+        });
     });
 </script>
 

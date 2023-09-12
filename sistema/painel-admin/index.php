@@ -1,38 +1,42 @@
 <?php 
-require_once("../../conexao.php"); 
-@session_start();
-    //verificar se o usuário está autenticado
-if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
-    echo "<script language='javascript'> window.location='../index.php' </script>";
+    require_once("../../conexao.php"); 
+    @session_start();
+        //verificar se o usuário está autenticado
+    if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
+        echo "<script language='javascript'> window.location='../index.php' </script>";
 
-}
+    }
 
-    //variaveis para o menu
-$pag = @$_GET["pag"];
-$menu1 = "produtos";
-$menu2 = "categorias";
-$menu3 = "sub-categorias";
-$menu4 = "combos";
-$menu5 = "promocoes";
-$menu6 = "clientes";
-$menu7 = "vendas";
-$menu8 = "backup";
-
-
-//CONSULTAR O BANCO DE DADOS E TRAZER OS DADOS DO USUÁRIO
-$res = $pdo->query("SELECT * FROM usuarios where id = '$_SESSION[id_usuario]'"); 
-$dados = $res->fetchAll(PDO::FETCH_ASSOC);
-$nome_usu = @$dados[0]['nome'];
-$email_usu = @$dados[0]['email'];
-$cpf_usu = @$dados[0]['cpf'];
+        //variaveis para o menu
+    $pag = @$_GET["pag"];
+    $menu1 = "produtos";
+    $menu2 = "categorias";
+    $menu3 = "promocoes";
+    $menu4 = "clientes";
+    $menu5 = "vendas";
+    $menu6 = "pedidos";
+    $menu7 = "estoque";
+    $menu8 = "carrinhos";
+    $menu9 ="pagamentos";
+    $menu10 = "retiradas";
+    $menu11 = "chat";
+   
 
 
+
+    //CONSULTAR O BANCO DE DADOS E TRAZER OS DADOS DO USUÁRIO
+    $res = $pdo->query("SELECT * FROM usuarios where id = '$_SESSION[id_usuario]'"); 
+    $dados = $res->fetchAll(PDO::FETCH_ASSOC);
+    $nome_usu = @$dados[0]['nome'];
+    $email_usu = @$dados[0]['email'];
+    $cpf_usu = @$dados[0]['cpf'];
+    $img_usu = @$dados[0]['image'];
 ?>
 
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
 
@@ -103,27 +107,26 @@ $cpf_usu = @$dados[0]['cpf'];
 
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Produtos</a>
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Categorias</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu3 ?>">Sub Categorias</a>
+                        
                     </div>
                 </div>
             </li>
+
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-percent"></i>
-                    <span>Combos e Promoções</span>
+                    <span>Promoções</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu4 ?>">Combos</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu5 ?>">Promoções</a>
-
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu3 ?>">Promoções</a>
                     </div>
                 </div>
             </li>
 
+            
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -136,33 +139,69 @@ $cpf_usu = @$dados[0]['cpf'];
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu4 ?>">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Clientes</span></a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu5 ?>">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Vendas</span></a>
+                    </li>
+                </li>
                 <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Pedidos</span>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>Vendas</span></a>
-                    </li>
+                        <span>Estoque</span>
+                    </a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?pag=<?php echo $menu8 ?>">
-                            <i class="fas fa-fw fa-table"></i>
-                            <span>Backup</span></a>
-                        </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu8 ?>">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Carrinhos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu9 ?>">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Pagamentos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu10 ?>">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Retiradas</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu11 ?>">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
 
                         <!-- Divider -->
-                        <hr class="sidebar-divider d-none d-md-block">
+                <hr class="sidebar-divider d-none d-md-block">
 
-                        <!-- Sidebar Toggler (Sidebar) -->
-                        <div class="text-center d-none d-md-inline">
-                            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                        </div>
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
 
-                    </ul>
+            </ul>
                     <!-- End of Sidebar -->
 
                     <!-- Content Wrapper -->
@@ -190,7 +229,7 @@ $cpf_usu = @$dados[0]['cpf'];
                                     <li class="nav-item dropdown no-arrow">
                                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo @$nome_usu ?></span>
-                                            <img class="img-profile rounded-circle" src="../../img/sem-foto.jpg">
+                                            <img class="img-profile rounded-circle" src="<?php echo @$img_usu; ?>">
 
                                         </a>
                                         <!-- Dropdown - User Information -->
@@ -243,6 +282,15 @@ $cpf_usu = @$dados[0]['cpf'];
                                 } else if ($pag==$menu8) {
                                     include_once($menu8.".php");
 
+                                } else if ($pag==$menu9) {
+                                    include_once($menu9.".php"); 
+
+                                } else if ($pag==$menu10) {
+                                    include_once($menu10.".php");
+
+                                } else if ($pag==$menu11) {
+                                    include_once($menu11.".php");
+
                                 } else {
                                     include_once("home.php");
                                 }
@@ -282,14 +330,8 @@ $cpf_usu = @$dados[0]['cpf'];
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-
-
-
                             <form id="form-perfil" method="POST" enctype="multipart/form-data">
                                 <div class="modal-body">
-
-
-
                                     <div class="form-group">
                                         <label >Nome</label>
                                         <input value="<?php echo @$nome_usu ?>" type="text" class="form-control" id="nome-usuario" name="nome-usuario" placeholder="Nome">
