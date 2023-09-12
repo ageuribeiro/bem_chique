@@ -18,6 +18,11 @@ if($nome == ""){
 	exit();
 }
 
+if($nome == ""){
+	echo 'Preencha o Campo Descrição!';
+	exit();
+}
+
 
 if($nome != $antigo){
 	$res = $pdo->query("SELECT * FROM categorias where nome = '$nome'"); 
@@ -30,9 +35,9 @@ if($nome != $antigo){
 
 
 //SCRIPT PARA SUBIR FOTO NO BANCO
-$caminho = '../../../img/categorias/' .@$_FILES['imagem']['name'];
+$caminho = '../painel-admin/img/categorias/' .@$_FILES['imagem']['name'];
 if (@$_FILES['imagem']['name'] == ""){
-  $imagem = "sem-foto.jpg";
+  $imagem = "sem-foto.png";
 }else{
   $imagem = @$_FILES['imagem']['name']; 
 }
@@ -53,7 +58,7 @@ if($id == ""){
 	$res->bindValue(":imagem", $imagem);
 }else{
 
-	if($imagem == "sem-foto.jpg"){
+	if($imagem == "sem-foto.png"){
 		$res = $pdo->prepare("UPDATE categorias SET nome = :nome, nome_url = :nome_url, descricao = :descricao WHERE id = :id");
 	}else{
 		$res = $pdo->prepare("UPDATE categorias SET nome = :nome, nome_url = :nome_url,  descricao = :descricao , imagem = :imagem WHERE id = :id");

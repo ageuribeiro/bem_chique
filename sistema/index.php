@@ -25,14 +25,15 @@
    <!------ Include the above in your HEAD tag ---------->
 
    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-   <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+   
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
    <link href="../css/login.css" rel="stylesheet">
    <script src="../js/login.js"></script>
 
-   <link rel="shortcut icon" href="../img/logoicone1.ico" type="image/x-icon">
-   <link rel="icon" href="../img/logoicone2.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="./../img/logotipo/simbolo-preto.png" type="image/x-icon">
+    <link rel="icon" href="./../img/logotipo/simbolo-preto.png" type="image/x-icon">
 </head>
 <body class="bg-rosa-blush pb-5">
    <header class="bg-rosa-blush pb-5">
@@ -48,7 +49,7 @@
                            </a>
                         </div>
                         <div class="col-md-12 text-center">
-                           <h1 class="display-5">Login</h1>
+                           <h1>Acesso Restrito</h1>
                         </div>
 					      </div>
                      <form action="autenticar.php" method="post" name="login">

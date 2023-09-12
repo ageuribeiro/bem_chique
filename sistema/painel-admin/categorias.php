@@ -29,6 +29,7 @@
                 <tbody>
                    <?php 
                         $query = $pdo->query("SELECT * FROM categorias order by id desc ");
+
                         $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                         for ($i=0; $i < count($res); $i++) { 
@@ -38,12 +39,13 @@
                             $id = $res[$i]['id'];
                             $nome = $res[$i]['nome'];
                             $decricao = $res[$i]['descricao'];
+                            $imagem = $res[$i]['imagem'];
                     ?>
                     <tr>
-                        <td class="text-center"><?php echo $nome ?></td>
-                        <td class="text-center"><img src="img/categorias/<?php echo $imagem ?>" width="50"></td>
-                        <td class="text-center"><?php echo $decricao ?></td>
-                        <td class="text-center">
+                        <td class="text-center align-middle"><?php echo $nome ?></td>
+                        <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
+                        <td class="text-center align-middle"><?php echo $decricao ?></td>
+                        <td class="text-center align-middle">
                             <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
                             <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
                         </td>
@@ -100,9 +102,13 @@
                     </div>
 
                     <?php if(@$imagem2 != ""){ ?>
-                    	 <img src="../../img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target" class="rounded">
-                 	<?php  }else{ ?>
-                    <img src="../../img/categorias/sem-foto.jpg" width="200" height="200" id="target" class="rounded">
+                    	 <img src="../painel-admin/img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target" class="rounded">
+                 	<?php  
+                        }
+                        else
+                        { 
+                    ?>
+                    <img src="../painel-admin/img/categorias/sem-foto.png" width="200" height="200" id="target" class="rounded">
                 	<?php } ?>
                     <small>
                         <div id="mensagem"></div>
