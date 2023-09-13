@@ -1,13 +1,12 @@
+<?php
+    require_once("../../layout.php");
+    require_once("../../conexao.php");
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="../css/style.css" media="all">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="shortcut icon" href="../../img/logotipo/simbolo-preto.png" type="image/x-icon">
     <title>Painel Administrativo | Bem Chique</title>
 </head>
 
