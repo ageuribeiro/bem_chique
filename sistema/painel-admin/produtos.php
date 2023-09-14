@@ -5,13 +5,15 @@
         //verificar se o usuário está autenticado
     if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
         echo "<script language='javascript'> window.location='../index.php' </script>";
-    
     } 
 ?>
-
-<div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Produto <i class="fa fa-plus"></i></a>
-    <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2 class="h2 mx-2">Produto</h2>
+</div>
+<div class="mt-4 mb-4">
+    <button class="btn-add" type="button">
+        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Produto <i class='bx bx-plus' ></i></a>
+    </button>
 </div>
 
 
@@ -45,8 +47,8 @@
                         <td><?php echo $decricao ?></td>
                         <!-- <td><img src="../../img/categorias/<?php # echo $imagem ?>" width="50"></td> -->
                         <td>
-                             <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+                            <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar produto'><i class='bx bxs-edit icon' ></i></a>
+                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir produto'><i class='bx bx-trash icon' ></i></a>
                         </td>
                     </tr>
                     <?php } ?>

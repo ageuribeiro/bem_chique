@@ -8,53 +8,56 @@
     }
 ?>
 
-<div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria <i class="fa fa-plus"></i></a>
-    <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h1">Categoria</h1>
 </div>
 
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th class="text-center">Nome</th>
-                        <th class="text-center">Imagem</th>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   <?php 
-                        $query = $pdo->query("SELECT * FROM categorias order by id desc ");
+<div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <h4> Categorias registradas </h4>
+    <button class="btn-add" type="button" id="btn-new-category">
+        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria <i class='bx bx-plus' ></i></a>
+    </button>
+</div>
 
-                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+<!-- DataTables Example -->
 
-                        for ($i=0; $i < count($res); $i++) { 
-                            foreach ($res[$i] as $key => $value) {
-                            }
+<div class="table-responsive small">
+    <table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Nome</th>
+                <th class="text-center" scope="col">Imagem</th>
+                <th class="text-center" scope="col">Descrição</th>
+                <th class="text-center" scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                $query = $pdo->query("SELECT * FROM categorias order by id desc ");
 
-                            $id = $res[$i]['id'];
-                            $nome = $res[$i]['nome'];
-                            $decricao = $res[$i]['descricao'];
-                            $imagem = $res[$i]['imagem'];
-                    ?>
-                    <tr>
-                        <td class="text-center align-middle"><?php echo $nome ?></td>
-                        <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
-                        <td class="text-center align-middle"><?php echo $decricao ?></td>
-                        <td class="text-center align-middle">
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                for ($i=0; $i < count($res); $i++) { 
+                    foreach ($res[$i] as $key => $value) {
+                    }
+
+                    $id = $res[$i]['id'];
+                    $nome = $res[$i]['nome'];
+                    $decricao = $res[$i]['descricao'];
+                    $imagem = $res[$i]['imagem'];
+            ?>
+            <tr>
+                <td class="text-center align-middle"><?php echo $nome ?></td>
+                <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
+                <td class="text-center align-middle"><?php echo $decricao ?></td>
+                <td class="text-center align-middle">
+                    <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Categoria'><i class='bx bxs-edit icon' ></i></a>
+                    <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Categoria'><i class='bx bx-trash icon' ></i></a>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </div>
 
 <!-- Modal Dados-->
@@ -137,20 +140,14 @@
                 </button>
             </div>
             <div class="modal-body">
-
                 <p>Deseja realmente Excluir esta Categoria?</p>
-
                 <div align="center" id="mensagem_excluir" class="">
-
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
                 <form method="post">
-
                     <input type="hidden" id="id"  name="id" value="<?php echo @$_GET['id'] ?>" required>
-
                     <button type="button" id="btn-deletar" name="btn-deletar" class="btn btn-danger">Excluir</button>
                 </form>
             </div>
@@ -158,9 +155,16 @@
     </div>
 </div>
 
-
-
-
+<script src="../js/script.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function (){
+        $('#btn-new-category').click(function(){
+            $('#modalDados').modal("show");
+        });
+    });
+</script>
 
 <?php 
 
@@ -178,11 +182,9 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 ?>
 
-
-
-
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
 <script type="text/javascript">
+
     $("#form").submit(function () {
         var pag = "<?=$pag?>";
         event.preventDefault();
@@ -229,10 +231,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
     });
 </script>
 
-
-
-
-
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
     $(document).ready(function () {
@@ -265,8 +263,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
     })
 </script>
 
-
-
 <!--SCRIPT PARA CARREGAR IMAGEM -->
 <script type="text/javascript">
 
@@ -290,22 +286,3 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
     }
 
 </script>
-
-
-
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#dataTable').dataTable({
-            "ordering": false
-        })
-
-    });
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-
-<script src="../../js/mascara.js"></script>
-
-

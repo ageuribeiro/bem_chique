@@ -1,5 +1,4 @@
 <?php
-require_once("../layout.php");
 require_once("../conexao.php");
 
 //VERIFICAR SE EXISTE ALGUM CADASTRO NO BANCO, SE NÃO TIVER CADASTRAR O USUÁRIO ADMINISTRADOR
@@ -12,28 +11,12 @@ if (@count($dados) == 0) {
 
 ?>
 
-
-<title>Login -
-   <?php echo $nome_loja ?>
-</title>
+<title>Login - <?php echo $nome_loja ?></title>
 
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-   integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-   integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-
-
-
-
-<link href="../css/login.css" rel="stylesheet">
-<script src="../js/login.js"></script>
+<link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <link rel="shortcut icon" href="./../img/logotipo/simbolo-preto.png" type="image/x-icon">
 <link rel="icon" href="./../img/logotipo/simbolo-preto.png" type="image/x-icon">
@@ -251,7 +234,10 @@ if (@count($dados) == 0) {
 </script>
 
 
-
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
 <script src="../js/mascara.js"></script>

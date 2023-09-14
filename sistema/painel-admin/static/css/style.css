@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,500;0,700;0,900;1,300&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box !important;
+    font-family: "Poppins", sans-serif !important;
+    animation: none !important;
+    transition: none ;
+}
+
+body{
+    display: flex;
+    flex-direction: row;
+    font-size: 10.375rem;
+}
+
+i.icon{
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding: 0rem 0rem;
+}
+
+h1{
+    font-size: 2rem;
+}
+
+h2{
+    font-size: 1.5rem;
+}
+
+h3{
+    font-size: 1.25rem;
+}
+
+h4{
+    font-size: 1rem;
+}
+
+h5{
+    font-size: 0.875rem;
+}
+
+h6{
+    font-size: 0.75rem;
+}
+
+p{
+    font-size: 0.5rem;
+}
+
+:root{
+    --background-dark: #B07A7A;
+    --background-content-light: #FFFFFF;
+    --background-sidebar-light: #F4EBEB;
+    --color-content--light: #EEDCDB;
+    --color-sidebar--light: #FDEFEA;
+
+    --background-content-dark: #0A0A0A;
+    --background-sidebar-dark: #262626;
+    --color-content--dark: #FAFAFA;
+    --color-sidebar--dark: #B07A7A;
+
+    --color-primary: #262626;
+    --color-warning: #FFA500;
+    --color-delete: #FF6347;
+    --color-danger: #DC143C;
+    --color-success: #003300;
+    --color-success-light: #009900;
+    --color-secondary: #808080;
+
+    --background-primary: #262626;
+    --background-warning: #FFA500;
+    --background-delete: #FF6347;
+    --background-danger: #DC143C;
+    --background-success: #003300;
+    --background-secondary: #808080;
+}
+
+
+.btn-add{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background: var(--background-primary);
+    border: none;
+    outline: none;
+    padding: 0.4375rem;
+    border-radius: 0.3125rem;
+    transition: background 0.5s ease-in;
+    padding: 0.5rem 0.7rem;
+}
+
+
+.btn-add:hover{
+    background: var(--background-secondary);
+    transition: background 0.5s ease-out;
+}
+
+.btn-search[value],
+.btn-add a{
+    text-decoration: none;
+    color: var(--color-secondary);
+    transition: color 0.5s ease-in;
+}
+
+.btn-add a:hover{
+    color: var(--color-primary);
+    transition: color 0.5s ease-out;
+}
+
+.btn-bc-primary{
+    color: var(--color-primary);
+    transition: color 0.5s ease-in;
+}
+
+.btn-bc-primary:hover{
+    color: var(--color-secondary);
+    transition: color 0.5s ease-out;
+}
+
+.btn-bc-danger{
+    color: var(--color-danger);
+    transition: color 0.5s ease-in;
+}
+
+.btn-bc-danger:hover{
+    color: var(--color-delete);
+    transition: color 0.5s ease-out;
+}
+
+.sidebar{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: var(--background-sidebar-light);
+    color: var(--color-sidebar--dark);
+    position: fixed;
+    width: 15.9375rem;
+    max-height: 100vh;
+    min-height: 100vh;
+    font-size: 0.875rem;
+    z-index: 100;
+}
+
+.sidebar .logo img{
+    width: 5.625rem;
+    margin: 0.75rem 0rem;
+    border: 0.1875rem solid transparent;
+    transition: border .5s ease-in-out;
+}
+
+.sidebar .logo img:hover{
+    border: 0.1875rem solid var(--color-sidebar--dark);
+    transition: border .5s ease-in-out;
+}
+
+.sidebar .toggle{
+    position: absolute;
+    right: -1rem;
+    top: 5.625rem;
+    font-size: 2rem;
+    border-radius: 50%;
+    background: var(--background-dark);
+    color: var(--color-sidebar--light);
+    transform: rotate(0deg);
+    transition: all .7s ease;
+}
+
+.sidebar .toggle:hover{
+    background: var(--background-sidebar-light);
+    color: var(--color-sidebar--dark);
+    cursor: pointer;
+    transform: rotate(180deg);
+    transition: all .7s ease;
+    
+}
+
+.sidebar .toggle:active{
+    background: var(--background-sidebar-light);
+    color: var(--color-sidebar--dark);
+    transition: all .5s ease-in-out;
+}
+
+.sidebar .profile-content .profile .profile-details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.sidebar .profile-content .profile .profile-details img{
+    width: 4.375rem;
+    height: 4.375rem;
+    border: 0.3125rem solid var(--color-content--light);
+    filter: grayscale(0%);
+    transition: 1s ease-in-out;
+}
+
+.picture-profile-edit{
+    text-align: center;
+    width: 6.25rem;
+    height: 6.25rem;
+    border: 0.3125rem solid var(--color-content--light);
+    margin-top:0.3125rem;
+    margin-bottom:0.625rem;
+}
+
+.sidebar .profile-content .profile .profile-details img:hover{
+    width: 4.375rem;
+    height: 4.375rem;
+    border: 0.3125rem solid var(--color-sidebar--dark);
+    filter: grayscale(100%);
+    transition: 1s ease-in-out;
+}
+
+.sidebar .profile-content .profile .profile-details .name{
+    color: var(--color-danger);
+    transition: all .5s ease-in-out;
+}
+
+.sidebar .profile-content .profile .profile-details .function{
+    color: var(--color-secondary);
+    font-weight: 600;
+    font-style: italic;
+    font-size: .7rem;
+    transition: all .5s ease-in-out;
+}
+
+.user-profile{
+    display: flex;
+    align-items: center;
+}
+
+.user-profile .settings{
+    position:relative;
+    top:-1.25rem;
+    right:0.625rem;
+    margin-right: 0.625rem;
+    transform: rotate(-45deg);
+    transition: transform 0.5s ease-in;
+}
+
+.user-profile .settings:hover{
+    transform: rotate(45deg);
+    transition: transform 0.5s ease-in;
+    cursor: pointer;
+}
+
+.sidebar .profile-content .profile .profile-details .name_jobs i.icon{
+
+    color: var(--color-success-light);
+    font-size: x-large;
+    font-weight: 700;
+}
+.form-pay{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-pay button{
+    outline: none;
+    border: none;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 0.4375rem;
+    background: var(--background-dark);
+    color: var(--color-content--light);
+    transition: all 0.7s ease;
+}
+
+.form-pay button:hover{
+    background: var(--color-content--light);
+    color: var(--color-sidebar--dark);
+    cursor: pointer;
+    transition: all 0.7s ease;
+}
+
+.form-pay input[type='search'],
+.content .form-search input[type='search']{
+    width: 31.25rem;
+    padding: 0.375rem 0.625rem;
+    border: thin solid var(--color-secondary);
+    border-radius: 0.4375rem ;
+    color: var(--color-sidebar--dark);
+}
+
+.form-stock input[type='search']{
+    background-color: var(--background-sidebar-light);
+    width: 25vw;
+}
+
+.content .form-search input[type='search']:active,
+.content .form-search input[type='search']:focus{
+    width: auto;
+    padding: 0.3125rem;
+    border-color: none;
+    outline: none;
+}
+
+.stock-btn-search,
+.content .sidebar-btn-search{
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--color-sidebar--dark);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.5s ease-in-out;
+    display: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar .sidebar-btn-search:hover{
+    color: var(--background-sidebar-dark);
+    transition: color 0.5s ease-in-out;
+}
+
+.sidebar-menu{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-menu-link{
+    width: 12.5rem;
+    padding: 0.3125rem;
+    margin: 0.3125rem 0.3125rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 0.4375rem;
+    transition: 0.5s ease-in-out;
+    height: 2.1875rem;
+}
+
+.sidebar-menu-link.active,
+.sidebar-menu-link.active a{
+    background: var(--color-sidebar--dark);
+    color: var(--color-content--light);
+    transition: 0.5s ease-in-out;
+}
+
+.sidebar-menu-link:hover{
+    background: var(--color-sidebar--dark);
+    transition: 0.5s ease-in-out;
+}
+
+.sidebar-menu-link a{
+    text-decoration: none;
+    flex-grow: 2;
+    padding: 0.3125rem;
+    border: none;
+    border-radius: 0.4375rem;
+    color: var(--color-sidebar--dark);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    transition: 0.5s ease-in-out;
+}
+
+.sidebar-menu-link a:hover{
+    color: var(--color-content--light);
+    transition: 0.5s ease-in-out;
+}
+
+.sidebar-menu-link a i.icon{
+    font-size: 1.5rem;
+    margin: 0rem 0.3125rem;
+    display: inline;
+
+}
+
+.content{
+    margin-left: 15.9375rem;
+    width: calc(100% - 15.9375rem);
+    padding: 1.25rem;
+    transition: 1.5s ease-in;
+}
+
+.image-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.image-container img{
+    margin-bottom: 0.625rem;
+}

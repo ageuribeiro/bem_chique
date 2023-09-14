@@ -8,16 +8,16 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
 
 //variaveis para o menu
 $pag = @$_GET["pag"];
-$menu1 = "produtos";
-$menu2 = "categorias";
-$menu3 = "promocoes";
+$menu1 = "dashboard";
+$menu2 = "categoria";
+$menu3 = "produtos";
 $menu4 = "clientes";
-$menu5 = "vendas";
-$menu6 = "pedidos";
+$menu5 = "pedidos";
+$menu6 = "vendas";
 $menu7 = "estoque";
 $menu8 = "carrinhos";
 $menu9 = "pagamentos";
-$menu10 = "retiradas";
+$menu9 = "blogs";
 $menu11 = "chat";
 
 //CONSULTAR O BANCO DE DADOS E TRAZER OS DADOS DO USUÁRIO
