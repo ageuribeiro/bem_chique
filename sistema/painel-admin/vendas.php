@@ -1,74 +1,71 @@
-<?php 
-    $pag = "categorias";
-    require_once("../../conexao.php"); 
-    @session_start();
-        //verificar se o usuário está autenticado
-    if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
-        echo "<script language='javascript'> window.location='../index.php' </script>";
-    }
+<?php
+$pag = "categorias";
+require_once("../../conexao.php");
+@session_start();
+//verificar se o usuário está autenticado
+if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') {
+    echo "<script language='javascript'> window.location='../index.php' </script>";
+}
 ?>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2 class="h2">Venda</h2>
 </div>
 
-<div class="mt-4 mb-4">
+<div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <h5> Vendas registradas </h5>
     <button class="btn-add" type="button">
-        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Venda <i class='bx bx-plus' ></i></a>
+        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Venda <i class='bx bx-plus'></i></a>
     </button>
 </div>
 
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th class="text-center">Nome</th>
-                        <th class="text-center">Imagem</th>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   <?php 
-                        $query = $pdo->query("SELECT * FROM categorias order by id desc ");
+<div class="table-responsive small">
+    <table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Imagem</th>
+                <th class="text-center">Descrição</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $query = $pdo->query("SELECT * FROM categorias order by id desc ");
 
-                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                        for ($i=0; $i < count($res); $i++) { 
-                            foreach ($res[$i] as $key => $value) {
-                            }
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
 
-                            $id = $res[$i]['id'];
-                            $nome = $res[$i]['nome'];
-                            $decricao = $res[$i]['descricao'];
-                            $imagem = $res[$i]['imagem'];
-                    ?>
-                    <tr>
-                        <td class="text-center align-middle"><?php echo $nome ?></td>
-                        <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
-                        <td class="text-center align-middle"><?php echo $decricao ?></td>
-                        <td class="text-center align-middle">
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Dados'><i class='bx bxs-edit icon' ></i></a>
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Registro'><i class='bx bx-trash icon' ></i></a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                $id = $res[$i]['id'];
+                $nome = $res[$i]['nome'];
+                $decricao = $res[$i]['descricao'];
+                $imagem = $res[$i]['imagem'];
+            ?>
+                <tr>
+                    <td class="text-center align-middle"><?php echo $nome ?></td>
+                    <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
+                    <td class="text-center align-middle"><?php echo $decricao ?></td>
+                    <td class="text-center align-middle">
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Dados'><i class='bx bxs-edit icon'></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Registro'><i class='bx bx-trash icon'></i></a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </div>
+  
 
 <!-- Modal Dados-->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <?php 
-                if (@$_GET['funcao'] == 'editar') 
-                {
+                <?php
+                if (@$_GET['funcao'] == 'editar') {
                     $titulo = "Editar Categoria";
                     $id2 = $_GET['id'];
 
@@ -78,13 +75,11 @@
                     $nome2 = $res[0]['nome'];
                     $descricao2 = $res[0]['descricao'];
                     $imagem2 = $res[0]['imagem'];
-                } 
-                else 
-                {
+                } else {
                     $titulo = "Registrar Categoria";
                 }
                 ?>
-                
+
                 <h5 class="modal-title" id="exampleModalLabel"><?php echo $titulo ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -102,21 +97,19 @@
                     </div>
                     <div class="form-group">
                         <label for="imagem-categoria">Imagem</label>
-                        <input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem-categoria" name="imagem-categoria" onChange="carregarImg();">
+                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem-categoria" name="imagem-categoria" onChange="carregarImg();">
                     </div>
 
-                    <?php if(@$imagem2 != ""){ ?>
-                    	 <img src="../painel-admin/img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target" class="rounded">
-                 	<?php  
-                        }
-                        else
-                        { 
+                    <?php if (@$imagem2 != "") { ?>
+                        <img src="../painel-admin/img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target" class="rounded">
+                    <?php
+                    } else {
                     ?>
-                    <img src="../painel-admin/img/categorias/sem-foto.png" width="200" height="200" id="target" class="rounded">
-                	<?php } ?>
+                        <img src="../painel-admin/img/categorias/sem-foto.png" width="200" height="200" id="target" class="rounded">
+                    <?php } ?>
                     <small>
                         <div id="mensagem"></div>
-                    </small> 
+                    </small>
                 </div>
                 <div class="modal-footer">
                     <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
@@ -153,7 +146,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
                 <form method="post">
 
-                    <input type="hidden" id="id"  name="id" value="<?php echo @$_GET['id'] ?>" required>
+                    <input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
 
                     <button type="button" id="btn-deletar" name="btn-deletar" class="btn btn-danger">Excluir</button>
                 </form>
@@ -166,7 +159,7 @@
 
 
 
-<?php 
+<?php
 
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
     echo "<script>$('#modalDados').modal('show');</script>";
@@ -187,8 +180,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
 <script type="text/javascript">
-    $("#form").submit(function () {
-        var pag = "<?=$pag?>";
+    $("#form").submit(function() {
+        var pag = "<?= $pag ?>";
         event.preventDefault();
         var formData = new FormData(this);
 
@@ -197,16 +190,16 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
             type: 'POST',
             data: formData,
 
-            success: function (mensagem) {
+            success: function(mensagem) {
 
                 $('#mensagem').removeClass()
 
                 if (mensagem.trim() == "Salvo com Sucesso!!") {
-                    
+
                     //$('#nome').val('');
                     //$('#cpf').val('');
                     $('#btn-fechar').click();
-                    window.location = "index.php?pag="+pag;
+                    window.location = "index.php?pag=" + pag;
 
                 } else {
 
@@ -220,10 +213,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
             cache: false,
             contentType: false,
             processData: false,
-            xhr: function () {  // Custom XMLHttpRequest
+            xhr: function() { // Custom XMLHttpRequest
                 var myXhr = $.ajaxSettings.xhr();
                 if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                    myXhr.upload.addEventListener('progress', function () {
+                    myXhr.upload.addEventListener('progress', function() {
                         /* faz alguma coisa durante o progresso do upload */
                     }, false);
                 }
@@ -239,9 +232,9 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        var pag = "<?=$pag?>";
-        $('#btn-deletar').click(function (event) {
+    $(document).ready(function() {
+        var pag = "<?= $pag ?>";
+        $('#btn-deletar').click(function(event) {
             event.preventDefault();
 
             $.ajax({
@@ -249,7 +242,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
-                success: function (mensagem) {
+                success: function(mensagem) {
 
                     if (mensagem.trim() === 'Excluído com Sucesso!!') {
 
@@ -273,14 +266,13 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--SCRIPT PARA CARREGAR IMAGEM -->
 <script type="text/javascript">
-
     function carregarImg() {
 
         var target = document.getElementById('target');
         var file = document.querySelector("input[type=file]").files[0];
         var reader = new FileReader();
 
-        reader.onloadend = function () {
+        reader.onloadend = function() {
             target.src = reader.result;
         };
 
@@ -292,7 +284,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
             target.src = "";
         }
     }
-
 </script>
 
 
@@ -300,7 +291,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#dataTable').dataTable({
             "ordering": false
         })
@@ -311,5 +302,3 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
 <script src="../../js/mascara.js"></script>
-
-

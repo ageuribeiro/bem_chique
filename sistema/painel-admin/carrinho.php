@@ -10,53 +10,46 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2 class="h2">Carrinho</h2>
 </div>
-<div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria <i class='bx bx-plus' ></i></a>
-    <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
-</div>
+
 
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th class="text-center">Nome</th>
-                        <th class="text-center">Imagem</th>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   <?php 
-                        $query = $pdo->query("SELECT * FROM categorias order by id desc ");
+<div class="table-responsive small">
+<table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th class="text-center" scope="col">Nome</th>
+            <th class="text-center" scope="col">Imagem</th>
+            <th class="text-center" scope="col">Descrição</th>
+            <th class="text-center" scope="col">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php 
+            $query = $pdo->query("SELECT * FROM categorias order by id desc ");
 
-                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                        for ($i=0; $i < count($res); $i++) { 
-                            foreach ($res[$i] as $key => $value) {
-                            }
+            for ($i=0; $i < count($res); $i++) { 
+                foreach ($res[$i] as $key => $value) {
+                }
 
-                            $id = $res[$i]['id'];
-                            $nome = $res[$i]['nome'];
-                            $decricao = $res[$i]['descricao'];
-                            $imagem = $res[$i]['imagem'];
-                    ?>
-                    <tr>
-                        <td class="text-center align-middle"><?php echo $nome ?></td>
-                        <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
-                        <td class="text-center align-middle"><?php echo $decricao ?></td>
-                        <td class="text-center align-middle">
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                $id = $res[$i]['id'];
+                $nome = $res[$i]['nome'];
+                $decricao = $res[$i]['descricao'];
+                $imagem = $res[$i]['imagem'];
+        ?>
+        <tr>
+            <td class="text-center align-middle"><?php echo $nome ?></td>
+            <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
+            <td class="text-center align-middle"><?php echo $decricao ?></td>
+            <td class="text-center align-middle">
+                <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
+                <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+            </td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
 </div>
 
 <!-- Modal Dados-->

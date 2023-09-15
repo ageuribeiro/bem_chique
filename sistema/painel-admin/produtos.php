@@ -6,56 +6,63 @@
     if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
         echo "<script language='javascript'> window.location='../index.php' </script>";
     } 
+
+    $query = $pdo->query("SELECT COUNT(*) AS SCORE FROM produtos");
+    $score = $query->fetchColumn();
 ?>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2 class="h2 mx-2">Produto</h2>
+    <h2 class="h2">Produtos</h2>
 </div>
-<div class="mt-4 mb-4">
+
+<div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <button type="button" class="btn btn-primary position-relative"> Novos <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>
+    <button type="button" class="btn btn-secondary position-relative"> Vendidos <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>
+    <button type="button" class="btn btn-warning position-relative"> Esgotados <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>
+    <button type="button" class="btn btn-danger position-relative"> Promoção <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>
     <button class="btn-add" type="button">
         <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Produto <i class='bx bx-plus' ></i></a>
     </button>
 </div>
 
-
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   <?php 
-                        $query = $pdo->query("SELECT * FROM categorias order by id desc ");
-                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+<div class="table-responsive small">
+    <table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Nome</th>
+                <th class="text-center" scope="col">Código GTIN</th>
+                <th class="text-center" scope="col">Descrição</th>
+                <th class="text-center" scope="col">Cor</th>
+                <th class="text-center" scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                $query = $pdo->query("SELECT * FROM produtos order by id desc ");
+                $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                        for ($i=0; $i < count($res); $i++) { 
-                            foreach ($res[$i] as $key => $value) {
-                            }
+                for ($i=0; $i < count($res); $i++) { 
+                    foreach ($res[$i] as $key => $value) {
+                    }
 
-                            $id = $res[$i]['id'];
-                            $nome = $res[$i]['nome'];
-                            $decricao = $res[$i]['descricao'];
-                    ?>
-                    <tr>
-                        <td><?php echo $nome ?></td>
-                        <td><?php echo $decricao ?></td>
-                        <!-- <td><img src="../../img/categorias/<?php # echo $imagem ?>" width="50"></td> -->
-                        <td>
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar produto'><i class='bx bxs-edit icon' ></i></a>
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir produto'><i class='bx bx-trash icon' ></i></a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                    $id = $res[$i]['id'];
+                    $nome = $res[$i]['nome'];
+                    $codGTIN = $res[$i]['codigo_gtin'];
+                    $cor = $res[$i]['cor'];
+                    $decricao = $res[$i]['descricao'];
+            ?>
+            <tr>
+                <td><?php echo $nome ?></td>
+                <td><?php echo $decricao ?></td>
+                <!-- <td><img src="../../img/categorias/<?php # echo $imagem ?>" width="50"></td> -->
+                <td>
+                    <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar produto'><i class='bx bxs-edit icon' ></i></a>
+                    <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir produto'><i class='bx bx-trash icon' ></i></a>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </div>
 
 <!-- Modal Dados-->

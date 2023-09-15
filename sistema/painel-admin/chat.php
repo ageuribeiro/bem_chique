@@ -11,55 +11,54 @@
     <h2 class="h2">Chats</h2>
 </div>
 
-<div class="mt-4 mb-4">
+<div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <h5> Mensagens </h5>
     <button class="btn-add" type="button">
         <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Diálogo <i class='bx bx-plus' ></i></a>
     </button>
 </div>
 
 <!-- DataTables Example -->
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th class="text-center">Nome</th>
-                        <th class="text-center">Imagem</th>
-                        <th class="text-center">Descrição</th>
-                        <th class="text-center">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   <?php 
-                        $query = $pdo->query("SELECT * FROM categorias order by id desc ");
 
-                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+<div class="table-responsive small">
+    <table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Nome</th>
+                <th class="text-center" scope="col">Imagem</th>
+                <th class="text-center" scope="col">Descrição</th>
+                <th class="text-center" scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                $query = $pdo->query("SELECT * FROM categorias order by id desc ");
 
-                        for ($i=0; $i < count($res); $i++) { 
-                            foreach ($res[$i] as $key => $value) {
-                            }
+                $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                            $id = $res[$i]['id'];
-                            $nome = $res[$i]['nome'];
-                            $decricao = $res[$i]['descricao'];
-                            $imagem = $res[$i]['imagem'];
-                    ?>
-                    <tr>
-                        <td class="text-center align-middle"><?php echo $nome ?></td>
-                        <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
-                        <td class="text-center align-middle"><?php echo $decricao ?></td>
-                        <td class="text-center align-middle">
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Diálogo'><i class='bx bxs-edit icon' ></i></a>
-                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Diálogo'><i class='bx bx-trash icon' ></i></a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                for ($i=0; $i < count($res); $i++) { 
+                    foreach ($res[$i] as $key => $value) {
+                    }
+
+                    $id = $res[$i]['id'];
+                    $nome = $res[$i]['nome'];
+                    $decricao = $res[$i]['descricao'];
+                    $imagem = $res[$i]['imagem'];
+            ?>
+            <tr>
+                <td class="text-center align-middle"><?php echo $nome ?></td>
+                <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
+                <td class="text-center align-middle"><?php echo $decricao ?></td>
+                <td class="text-center align-middle">
+                    <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Diálogo'><i class='bx bxs-edit icon' ></i></a>
+                    <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Diálogo'><i class='bx bx-trash icon' ></i></a>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </div>
+ 
 
 <!-- Modal Dados-->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
