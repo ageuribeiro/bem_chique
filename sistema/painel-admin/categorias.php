@@ -186,6 +186,7 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
         });
     });
 
+<<<<<<< HEAD
     /* Ajax para deletar a Categoria */
     $(document).ready(function () {
         $('#deleteCategory').click(function (e) { 
@@ -193,4 +194,47 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
             $('#modalDelCategory').modal('show');
         });
     });
+=======
+            $.ajax({
+                url: pag + "/excluir.php",
+                method: "post",
+                data: $('form').serialize(),
+                dataType: "text",
+                success: function(mensagem) {
+
+                    if (mensagem.trim() === 'Excluído com Sucesso!!') {
+
+
+                        $('#btn-cancelar-excluir').click();
+                        window.location = "index.php?pag=" + pag;
+                    }
+
+                    $('#mensagem_excluir').text(mensagem)
+                },
+            });
+        });
+    });
+</script>
+
+<!--SCRIPT PARA CARREGAR IMAGEM -->
+<script type="text/javascript">
+    function carregarImg() {
+
+        var target = document.getElementById('target');
+        var file = document.querySelector("input[type=file]").files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+
+        } else {
+            target.src = "";
+        }
+    }
+>>>>>>> 9746acd5eca7353612d1301f77bc13c2805eb660
 </script>
