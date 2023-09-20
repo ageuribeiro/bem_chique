@@ -219,14 +219,10 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') 
                     }
 
                     $('#mensagem_excluir').text(mensagem)
-
-
-
                 },
-
-            })
-        })
-    })
+            });
+        });
+    });
 </script>
 
 <!--SCRIPT PARA CARREGAR IMAGEM -->
