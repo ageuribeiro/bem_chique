@@ -1,11 +1,16 @@
 <?php
-    require_once("../conexao.php");
-    @session_start();
-
+session_start();
+require_once("../conexao.php");
+    
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email_login'];
-    $senha = md5($_POST['senha_login']);
+    $senha = $_POST['senha_login'];
+}
 
-    $res = $pdo->query("SELECT * FROM usuarios where (email = '$email' or cpf = '$email') and senha_cripto= '$senha' "); 
+
+	$senha_cripto = md5($senha);
+
+    $res = $pdo->query("SELECT * FROM usuarios where (email = '$email' or cpf = '$email') and senha_cripto = '$senha_cripto' "); 
     $dados = $res->fetchAll(PDO::FETCH_ASSOC);
     
     if(@count($dados) > 0){
@@ -15,20 +20,16 @@
     	$_SESSION['cpf_usuario'] = $dados[0]['cpf'];
     	$_SESSION['nivel_usuario'] = $dados[0]['nivel'];
 
-    	if($_SESSION['nivel_usuario'] == 'Admin'){
-    		echo "<script language='javascript'> window.location='painel-admin' </script>";
+    	if($_SESSION['nivel_usuario'] == 'Owner'){
+			header("Location: painel-admin/index.php");
     	}
 
-    	if($_SESSION['nivel_usuario'] == 'Cliente'){
-    		echo "<script language='javascript'> window.location='painel-cliente' </script>";
+    	if($_SESSION['nivel_usuario'] == 'Customer'){
+    		header("Location: painel-client/index.php");
     	}
-
-
 
     }else{
     	echo "<script language='javascript'> window.alert('Dados Incorretos!') </script>";
     	echo "<script language='javascript'> window.location='index.php' </script>";
-
     }
-
 ?>

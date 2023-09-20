@@ -4,140 +4,50 @@
     require_once("../../config.php");
     @session_start();
     //verificar se o usuário está autenticado
-    if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') {
+    if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') {
         echo "<script language='javascript'> window.location='../index.php' </script>";
     }
 ?>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2 class="h2">Dashboard</h2>
-</div>
 
 <!--Todas as categorias-->
 <div class="table-responsive small">
     <h5>Todas as categorias</h5>
-    <table class="table table-striped table-sm">
+    <table class="table table-striped table-hover table-sm" id="tblDashAllCategory">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col"><input type="checkbox" name="AllCheckSelected"></th>
+                <th scope="col">#ID</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>">
+                <td><input type="checkbox"  ></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -148,126 +58,39 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -278,126 +101,39 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -408,126 +144,39 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -538,126 +187,39 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -668,126 +230,39 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -798,126 +273,39 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -928,126 +316,39 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
@@ -1058,386 +359,131 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
 
 <!-- Todos os chats-->
 <div class="table-responsive small">
-    <h5>Todos os produtos</h5>
+    <h5>Todos os chats</h5>
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col">Select</th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
 
 <!-- Todos as promoções-->
 <div class="table-responsive small">
-    <h5>Todos os produtos</h5>
+    <h5>Todas as promoções</h5>
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th scope="col"><input type="checkbox"></th>
                 <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
+                <th scope="col">Header_1</th>
+                <th scope="col">Header_2</th>
+                <th scope="col">Header_3</th>
+                <th scope="col">Header_4</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
+            <?php 
+                 
+            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
+                $id = $res[$i]['id'];
+                $header_1 = $res[$i]['header_1'];
+                $header_2 = $res[$i]['header_2'];
+                $header_3 = $res[$i]['header_3'];
+                $header_4 = $res[$i]['header_4'];
+            ?>
+            <tr data-id="<?php echo $id ?>" class="tr-dash">
+                 <td><input type="checkbox" name="thisChecked"></td>
+                <td><?php echo $id ?></td>
+                <td><?php echo $header_1 ?></td>
+                <td><?php echo $header_2 ?></td>
+                <td><?php echo $header_3 ?></td>
+                <td><?php echo $header_4 ?></td>
             </tr>
-            <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>random</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,005</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>placeholder</td>
-            </tr>
-            <tr>
-                <td>1,006</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,007</td>
-                <td>placeholder</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>irrelevant</td>
-            </tr>
-            <tr>
-                <td>1,008</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-            </tr>
-            <tr>
-                <td>1,009</td>
-                <td>placeholder</td>
-                <td>irrelevant</td>
-                <td>visual</td>
-                <td>layout</td>
-            </tr>
-            <tr>
-                <td>1,010</td>
-                <td>data</td>
-                <td>rich</td>
-                <td>dashboard</td>
-                <td>tabular</td>
-            </tr>
-            <tr>
-                <td>1,011</td>
-                <td>information</td>
-                <td>placeholder</td>
-                <td>illustrative</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,012</td>
-                <td>text</td>
-                <td>placeholder</td>
-                <td>layout</td>
-                <td>dashboard</td>
-            </tr>
-            <tr>
-                <td>1,013</td>
-                <td>dashboard</td>
-                <td>irrelevant</td>
-                <td>text</td>
-                <td>visual</td>
-            </tr>
-            <tr>
-                <td>1,014</td>
-                <td>dashboard</td>
-                <td>illustrative</td>
-                <td>rich</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>1,015</td>
-                <td>random</td>
-                <td>tabular</td>
-                <td>information</td>
-                <td>text</td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <!-- jQuery UI -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap -->
+

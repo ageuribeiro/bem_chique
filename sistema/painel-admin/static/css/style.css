@@ -37,22 +37,45 @@
 }
 
 body{
-    position: relative;
-    min-height: 100vh;
-    width: 100%;
-    
-    font-size: 14rem;
+   padding:25px;
 }
 
-.sidebar{
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 240px;
-    background-image: linear-gradient(to bottom, var(--background-content-dark), var(--background-primary));
-    padding: 6px 14px;
+@media (min-width: 1200px) and (max-width: 1900px){
+    .menu{
+        padding: 0;
+        margin: 0;
+        border: none;
+        max-width: 240px;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .sidebar{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to bottom, var(--background-content-dark), var(--background-primary));
+    }
+}
+
+@media(max-width: 450px){
+    .sidebar{
+        overflow-y: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100px;
+        background-image: linear-gradient(to bottom, var(--background-content-dark), var(--background-primary));
+        padding: 6px 14px;
+    }
+}
+
+.sidebar .sidebar-menu{
+    display: flexbox;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .sidebar .logo_content .logo{
@@ -74,11 +97,16 @@ body{
     margin-right: 5px;
 }
 
-
 .logo_content .logo .logo_name{
     font-size: 20px;
     font-weight: 400;
+}
 
+@media(max-width: 450px){
+    .logo_content .logo .logo_name{
+        font-size: 12px;
+        font-weight: 400;
+    }
 }
 
 .logo_content .logo .logo_name a{
@@ -100,6 +128,7 @@ body{
     transform: translateX(-50%);
     margin-bottom: 15px;
 }
+
 
 .sidebar ul{
     display:flex;
@@ -276,6 +305,14 @@ body{
     line-height: 50px;
     font-size: 20px;
     border-radius: 12px;
+    color: var(--color-sidebar--dark);
+    transition: all 1.5s ease;
+}
+
+.profile #log_out:hover{
+    color: var(--color-secondary);
+    transition: all 1.5s ease;
+    cursor: pointer;
 }
 
 /* Modal Editar Perfil*/
@@ -296,18 +333,20 @@ body{
     align-items: center;
     flex-direction: row;
     background: var(--background-primary);
+    color: var(--color-secondary);
     border: none;
     outline: none;
     padding: 0.4375rem;
     border-radius: 0.3125rem;
-    transition: background 0.5s ease-in;
+    transition: all 0.5s ease-in;
     padding: 0.5rem 0.7rem;
 }
 
 
 .btn-add:hover{
     background: var(--background-secondary);
-    transition: background 0.5s ease-out;
+    color: var(--color-primary);
+    transition: all 0.5s ease-out;
 }
 
 .btn-search[value],
@@ -363,8 +402,35 @@ body{
     left: 240px;
     padding: 0.75rem;
     transition: 1.5s ease-in;
+    overflow: hidden;
 }
 
+.content .pages .title-top-table{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index:10;
+    padding: 0;
+}
+
+#title-top-table{
+    position:sticky;
+    top:0;
+    background-color: #fff;
+    z-index: 1;
+    padding: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+#content-pages{
+    position:relative;
+    z-index: 0;
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+}
 h1{
     font-size: 2rem;
 }
@@ -393,6 +459,10 @@ p{
     font-size: 14px;
 }
 
+.first-letter-uppercase{
+    text-transform:capitalize;
+}
+
 i.icon{
     font-size: 1.5rem;
     line-height: 2rem;
@@ -407,3 +477,70 @@ button .score{
     box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.2);
 }
 
+.form-control-checkbox{
+    width: 25px;
+    height: 25px;
+    border-radius: 7px;
+}
+
+.formNewCategory .form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formNewCategory .form-group:nth-child(3){
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 5px;
+}
+
+.formNewCategory .form-group input::placeholder{
+    color: var(--color-sidebar--dark);
+    font-size: 14px;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 16px;
+}
+
+.fade-in{
+    opacity: 0;
+    display: block;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.fade-out{
+    opacity: 1;
+    display: block;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide-in{
+    display: block;
+    transition: all 1s ease-in-out;
+    animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn{
+    from{
+        transform: translateX(-100%);
+    }
+    
+    to{
+        transform: translateX(0);
+    }
+}
+
+
+.selected{
+    background-color: var(--background-content-dark);
+    color: var(--color-sidebar--dark);
+    transition: all 0.5s ease-in-out;
+}
+
+.table-hover tbody tr:hover td{
+    background-color: var(--background-content-dark);
+    color: var(--color-sidebar--dark);
+    transition: all 0.5s ease-in-out;
+}

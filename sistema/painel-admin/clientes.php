@@ -3,7 +3,7 @@
     require_once("../../conexao.php");
     @session_start();
     //verificar se o usuário está autenticado
-    if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin') {
+    if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') {
         echo "<script language='javascript'> window.location='../index.php' </script>";
     }
 
@@ -11,9 +11,6 @@
     $score = $query->fetchColumn();
 ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2 class="h2">Cliente</h2>
-</div>
 
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
     <h5> Clientes registrados: <span class="score"><?php echo @$score; ?></span></h5>
