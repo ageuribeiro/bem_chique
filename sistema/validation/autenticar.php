@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once("../conexao.php");
+require_once("../../conexao.php");
     
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email_login'];
-    $senha = $_POST['senha_login'];
+    $email = $_POST['email'];
+    $senha = $_POST['password'];
 }
 
 
@@ -15,21 +15,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if(@count($dados) > 0){
     	$_SESSION['id_usuario'] = $dados[0]['id'];
-    	$_SESSION['nome_usuario'] = $dados[0]['nome'];
     	$_SESSION['email_usuario'] = $dados[0]['email'];
-    	$_SESSION['cpf_usuario'] = $dados[0]['cpf'];
     	$_SESSION['nivel_usuario'] = $dados[0]['nivel'];
 
     	if($_SESSION['nivel_usuario'] == 'Owner'){
-			header("Location: painel-admin/index.php");
+			header("Location: ../painel-admin/index.php");
     	}
-
+		
     	if($_SESSION['nivel_usuario'] == 'Customer'){
-    		header("Location: painel-client/index.php");
+    		header("Location: ../painel-client/index.php");
     	}
-
-    }else{
-    	echo "<script language='javascript'> window.alert('Dados Incorretos!') </script>";
-    	echo "<script language='javascript'> window.location='index.php' </script>";
-    }
+	}
+    // }else{
+    // 	echo "<script language='javascript'> window.alert('Dados Incorretos!') </script>";
+    // 	echo "<script language='javascript'> window.location='../index.php' </script>";
+    // }
 ?>

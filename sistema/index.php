@@ -13,7 +13,7 @@ if (@count($dados) == 0) {
 <head>
    <title>Login - <?php echo $nome_loja ?></title>
 
-   <link rel="stylesheet" href="static/css/style.css">
+   <link rel="stylesheet" href="css/login.css">
    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -21,57 +21,48 @@ if (@count($dados) == 0) {
    <link rel="icon" href="./../img/logotipo/simbolo-preto.png" type="image/x-icon">
 </head>
 
-   <body class="bg-rosa-blush pb-5">
-      <header class="bg-rosa-blush pb-5">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-5 mx-auto">
-                  <div id="first">
-                     <div class="myform form">
-                        <div class="logo mb-3">
-                           <div class="d-flex mx-auto align-items-center justify-content-center">
-                              <a class="navbar-brand text-light" href="index.php">
-                                 <img src="../img/logo_bemchique.jpg" alt="logotipo" width="150" class="rounded-circle">
-                              </a>
-                           </div>
-                           <div class="col-md-12 text-center">
-                              <h1>Acesso Restrito</h1>
-                           </div>
-                        </div>
-                        <form action="autenticar.php" method="post" name="login" enctype="application/x-www-form-urlencoded">
-                           
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Email</label>
-                              <input type="email" name="email_login" class="form-control" id="email_login"
-                                 aria-describedby="emailHelp" placeholder="Insira seu Email" required>
-                           </div>
-                           
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Senha</label>
-                              <input type="password" name="senha_login" id="senha_login" class="form-control"
-                                 aria-describedby="emailHelp" placeholder="Senha" required>
-                           </div>
-                           
-                           <div class="col-md-12 text-center mt-4">
-                              <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
-                           </div>
-                           
-                           <div class="form-group mt-4">
-                              <small>
-                                 <p><?php echo @$response; ?></p>
-                                 <p class="text-center onModalCadastro">Não possui Cadastro? <a href="#" data-toggle="modal"
-                                       data-target="#modalCadastro">Cadastre-se</a></p>
-                                 <p class="text-center"><a class="text-danger" href="#" data-toggle="modal"
-                                       data-target="#modalRecuperar">Recuperar Senha?</a></p>
-                              </small>
-                           </div>
-                        </form>
+   <body>
+      <main id="container">
+         <form id="login_form" action="validation/autenticar.php" method="POST" name="form-login" enctype="multipart/form-data">
+            <div id="form_header">
+               <h1>Login</h1>
+               <i id="mode_icon" class='bx bxs-moon' ></i>
+            </div>
+            <div id="social_media">
+               <a href="#"><i class='bx bxl-facebook-circle' ></i></a>
+               <a href="#"><i class='bx bxl-instagram' ></i></a>
+               <a href="#"><i class='bx bxl-google' ></i></a>
+            </div>
+            <div id="inputs">
+               <div class="input-box">
+                  <label for="email"> 
+                     Email
+                     <div class="input-field">
+                        <i class='bx bx-envelope' ></i>
+                        <input type="email" name="email" id="email" required>
                      </div>
+                  </label>
+               </div>
+               <div class="input-box">
+                  <label for="password"> 
+                     Senha
+                     <div class="input-field">
+                        <i class='bx bx-key' ></i>
+                        <input type="password" name="password" id="password" required>
+                     </div>
+                  </label>
+                  <div id="forgot_password">
+                     <a href="#">
+                        Forgot your password?
+                     </a>
                   </div>
                </div>
             </div>
-         </div>
-      </header>
+            <button type="submit" id="login_button">
+               Login
+            </button>
+         </form>
+      </main>  
    </body>
 </html>
 
