@@ -125,8 +125,11 @@
     outline: none;
 }
 
+<<<<<<< HEAD
 #register a,
 #return_home a,
+=======
+>>>>>>> 200efd2ecffc0118b72a6811c14835339ff46d13
 #forgot_password a{
     list-style: none;
     text-decoration: none;
@@ -135,8 +138,11 @@
     transition: all 0.5s linear;
 }
 
+<<<<<<< HEAD
 #register a:hover,
 #return_home a:hover,
+=======
+>>>>>>> 200efd2ecffc0118b72a6811c14835339ff46d13
 #forgot_password a:hover{
     color:var(--color-rose-100);
     transition: all 0.5s linear;
