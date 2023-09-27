@@ -3,16 +3,13 @@
     require_once("../../conexao.php"); 
     @session_start();
         //verificar se o usuário está autenticado
-    if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
+    if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner'){
         echo "<script language='javascript'> window.location='../index.php' </script>";
     } 
 
     $query = $pdo->query("SELECT COUNT(*) AS SCORE FROM produtos");
     $score = $query->fetchColumn();
 ?>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2 class="h2">Produtos</h2>
-</div>
 
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
     <button type="button" class="btn btn-primary position-relative"> Novos <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>

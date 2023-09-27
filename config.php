@@ -1,6 +1,6 @@
 <?php 
     //VARIÁVEIS GLOBAIS
-    $email = 'bemchiquemodaelegante@gmail.com';
+    $email = 'ageu87@gmail.com';
     $telefone = '(11) 97752-3331';
     $whatsapp = '(11) 97752-3331';
     $instagram = 'https://www.instagram.com/bemchiques/';
@@ -10,8 +10,8 @@
     $endereco_loja = 'Rua Alameda Campos, Número 50, Bairro Centro, Belo Horizonte - MG';
 
     //VARIAVEIS DO BANCO DE DADOS
-    $servidor = 'localhost';
-    $usuario = 'root';
-    $senha = '';
+    $servidor = 'database-bemchique.czgdkwko9udz.us-east-1.rds.amazonaws.com';
+    $usuario = 'admin';
+    $senha = 'bemchiqueadmin123';
     $banco = 'bemchique_db';
 ?>
