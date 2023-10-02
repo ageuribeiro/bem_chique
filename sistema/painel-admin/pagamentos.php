@@ -9,14 +9,8 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
 ?>
 
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-    <h5> Categorias registradas </h5>
-    <form class="form-pay" role="search">
-        <div class="form-control">
-            <i class='bx bx-search icon'></i>
-            <input class="form-control input-search mx-4" type="search" placeholder="Consulte os Pagamentos..." aria-label="Search">
-            
-        </div>
-    </form>
+    <h5> Pagamentos efetuados: <span class="score">0</span> </h5>
+   
 </div>
 
 <!-- DataTales Example -->

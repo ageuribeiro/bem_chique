@@ -10,41 +10,42 @@ include_once('base.php');
                 <div class="footer align-items-center justify-content-center">
                     <h6 class="mb-5">Fale Conosco</h6>
                     <div class="footer__about__logo">
-                        <a href="./index.html"><img src="img/logotipo/logo-principal.png" alt="logo" width="100" class="rounded-circle"></a>
+                        <a href="./index.html"><img src="img/logotipo/logo-principal.png" alt="logo" width="80" class="rounded-circle"></a>
                     </div>
-                    <ul class="navbar navbar-nav">
-                        <!--<li class="navbar-item"><?php echo $endereco_loja ?></li>-->
-                        <li class="navbar-item">Telefone: <?php echo $telefone ?></li>
-                        <li class="navbar-item">Email: <?php echo $email ?></li>
-                    </ul>
+                    <div class="my-5">
+                        <p> Telefone: <?php echo $telefone ?></p>
+                        <p> Email: <?php echo $email ?></p>
+                    </div>
                     <h6 class="mt-5">Formas de pagamento</h6>
                     <div class="footer__copyright__payment" class="my-5">
-                        <i class="fa-brands fa-cc-visa" aria-hidden="true" ></i>
+                        <i class="fa-brands fa-cc-visa" aria-hidden="true"></i>
                         <i class="fa-brands fa-cc-mastercard" aria-hidden="true"></i>
                         <i class="fa-brands fa-pix" aria-hidden="true"></i>
                         <i class="fa-solid fa-barcode" aria-hidden="true"></i>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 align-items-center justify-content-center">
-                <h6 class="mb-5">Principais Links</h6>
-                <ul class="list-unstyled text-start text-center">
-                    <li><a href="contatos.php" class="text-decoration-none text-dark">Contatos</a></li>
-                    <li><a href="sobre.php" class="text-decoration-none text-dark">Sobre</a></li>
-                    <li><a href="carrinho.php" class="text-decoration-none text-dark">Carrinho</a></li>
-                    <li><a href="blog.php" class="text-decoration-none text-dark">Blog</a></li>
-                    <li><a href="lista-produtos" class="text-decoration-none text-dark">Lista de Produtos</a></li>
-                    <li><a href="categorias.php" class="text-decoration-none text-dark">Categorias</a></li>
-                </ul>
+            <div class="col-lg-4 col-md-6 col-sm-6 ">
+                <div class="d-block align-items-center justify-content-center">
+                    <h6 class="mb-5">Principais Links</h6>
+                    <ul class="list-unstyled text-start text-center">
+                        <li class="my-3"><a href="contatos.php" class="text-decoration-none text-dark">Contatos</a></li>
+                        <li class="my-3"><a href="sobre.php" class="text-decoration-none text-dark">Sobre</a></li>
+                        <li class="my-3"><a href="carrinho.php" class="text-decoration-none text-dark">Carrinho</a></li>
+                        <li class="my-3"><a href="blog.php" class="text-decoration-none text-dark">Blog</a></li>
+                        <li class="my-3"><a href="lista-produtos" class="text-decoration-none text-dark">Lista de Produtos</a></li>
+                        <li class="my-3"><a href="categorias.php" class="text-decoration-none text-dark">Categorias</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="col-lg-4 col-md-12">
-                <div class="my-5">
-                    <h6 class="mt-5">Ainda não possui Cadastro?</h6>
-                    <p>Insira seu email para se cadastrar em nosso site!!</p>
+                <div class="d-block align-items-center justify-content-center">
+                    <h6 class="my-5">Ainda não possui Cadastro?</h6>
+                    <p class="my-5">Insira seu email para se cadastrar em nosso site!!</p>
                     <form action="#" method="POST" enctype="multipart/form-data">
                         <div class="row mb-3">
                             <div class="col col-8">
-                                <input type="email" class="form-control bg-light opacity-50" placeholder="Insira seu Email" required>
+                                <input type="email" id="email-footer" name="email-footer" class="form-control bg-light opacity-50" placeholder="Insira seu Email" required>
                             </div>
                             <div class="col">
                                 <button type="submit" class="btn btn-outline-secondary">Cadastre-se</button>
@@ -76,7 +77,6 @@ include_once('base.php');
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 <script src="js/script.js"></script>
-<script src="js/main.js"></script>
 </body>
 
 </html>

@@ -9,26 +9,62 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
 ?>
 
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-    <h5> Transações de estoque: <span>0</span> </h5>   
-    <button class="btn-add" type="button">
-        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=buscar">Consultar Estoque <i class='bx bx-search icon'></i></a>
-    </button>
+
+    <div class="row mt-4 mb-4">
+        <a type="button" class="btn btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=entrada">Entrada de Produto <i class='bx bx-plus icon'></i></a>
+        <a type="button" class="btn btn-success btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=entrada">Saída de Produto <i class='bx bx-minus icon'></i></a>
+    </div>
 </div>
 <!-- DataTales Example -->
+<div class="row">
+    <div class=" d-flex mx-auto align-items-center justify-content-center">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card card-est">
+                <div class="card-body">
+                    <h5 class="card-title"> <i class='bx bx-money'></i> Saldo </h5>
+                    <?php
+                    $queryS = $pdo->query("SELECT SUM(valor) FROM estoque ORDER BY id ASC;");
+                    $saldo = $queryS->fetchColumn();
 
+                    ?>
+                    <p class="card-text"> <span><?php echo $saldo; ?></span> </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card card-est">
+                <div class="card-body">
+                    <h5 class="card-title"> <i class='bx bxs-shopping-bag-alt'></i> Items </h5>
+                    <?php
+                    $queryI = $pdo->query("SELECT SUM(quantidade) FROM estoque ORDER BY id ASC;");
+                    $itens = $queryS->fetchColumn();
+
+                    ?>
+                    <p class="card-text"> <span><?php echo $itens; ?></span> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div class="table-responsive small">
     <table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
+                <th class="text-center" scope="col">Código</th>
                 <th class="text-center" scope="col">Nome</th>
-                <th class="text-center" scope="col">Imagem</th>
                 <th class="text-center" scope="col">Descrição</th>
-                <th class="text-center" scope="col">Ações</th>
+                <th class="text-center" scope="col">Categoria</th>
+                <th class="text-center" scope="col">Data</th>
+                <th class="text-center" scope="col">Quantidade</th>
+                <th class="text-center" scope="col">Valor</th>
+                <th class="text-center" scope="col">Observação</th>
+                <th class="text-center" scope="col">Motivo</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            $query = $pdo->query("SELECT * FROM categorias order by id desc ");
+            $query = $pdo->query("SELECT * FROM estoque order by id desc ");
 
             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -39,10 +75,23 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
                 $id = $res[$i]['id'];
                 $nome = $res[$i]['nome'];
                 $decricao = $res[$i]['descricao'];
-                $imagem = $res[$i]['imagem'];
+                $categoria = $res[$i]['categoria'];
+                $data = $res[$i]['data'];
+                $quantidade = $res[$i]['quantidade'];
+                $valor = $res[$i]['valor'];
+                $observacao = $res[$i]['observacao'];
+                $motivo = $res[$i]['motivo'];
             ?>
                 <tr>
+                    <td class="text-center align-middle"><?php echo $codigo ?></td>
                     <td class="text-center align-middle"><?php echo $nome ?></td>
+                    <td class="text-center align-middle"><?php echo $decricao ?></td>
+                    <td class="text-center align-middle"><?php echo $categoria ?></td>
+                    <td class="text-center align-middle"><?php echo $data ?></td>
+                    <td class="text-center align-middle"><?php echo $quantidade ?></td>
+                    <td class="text-center align-middle"><?php echo $valor ?></td>
+                    <td class="text-center align-middle"><?php echo $observacao ?></td>
+                    <td class="text-center align-middle"><?php echo $motivo ?></td>
                     <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
                     <td class="text-center align-middle"><?php echo $decricao ?></td>
                     <td class="text-center align-middle">

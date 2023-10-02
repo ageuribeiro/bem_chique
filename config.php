@@ -1,6 +1,6 @@
 <?php 
     //VARIÁVEIS GLOBAIS
-    $email = 'ageu87@gmail.com';
+    $email = 'bemchiquemodaelegante@gmail.com';
     $telefone = '(11) 97752-3331';
     $whatsapp = '(11) 97752-3331';
     $instagram = 'https://www.instagram.com/bemchiques/';
@@ -14,4 +14,12 @@
     $usuario = 'admin';
     $senha = 'bemchiqueadmin123';
     $banco = 'bemchique_db';
+
+
+    //Dados de acesso ao painel do administrador
+    $owner = 'Rayssa Soares';
+    $cpf ='000.000.000-00';
+    $email_admin = 'rayssanogueira2023@gmail.com';
+    $senha_admin = 'rayssabemchique123';
+    $nivel = 'owner';
 ?>

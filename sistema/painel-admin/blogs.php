@@ -11,9 +11,9 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
 
     <p class="h6"><small>Última postagem: <span><?php echo date('d/m/Y');?></span></small></p>
-    <button class="btn-add" type="button">
-        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Postagem <i class='bx bx-plus'></i></a>
-    </button>
+    <div class="row mt-4 mb-4">
+        <a type="button" class="btn btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Postagem <i class='bx bx-plus'></i></a>
+    </div>
 </div>
 
 <!-- DataTales Example -->

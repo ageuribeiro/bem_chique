@@ -9,10 +9,7 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
 ?>
 
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-    <h5> Vendas registradas </h5>
-    <button class="btn-add" type="button">
-        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Venda <i class='bx bx-plus'></i></a>
-    </button>
+    <h6> Vendas registradas </h6>
 </div>
 
 <!-- DataTales Example -->

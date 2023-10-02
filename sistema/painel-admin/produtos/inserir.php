@@ -2,8 +2,7 @@
 
 require_once("../../../conexao.php"); 
 
-$nome = $_POST['nome-categoria'];
-$status = $_POST['status-categoria'];
+$nome = $_POST['nome-cat'];
 
 $nome_novo = strtolower( preg_replace("[^a-zA-Z0-9-]", "-", 
         strtr(utf8_decode(trim($nome)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
@@ -49,24 +48,28 @@ move_uploaded_file($imagem_temp, $caminho);
 
 
 if($id == ""){
-	$res = $pdo->prepare("INSERT INTO categorias (nome, imagem, status) VALUES (:nome, :imagem,  :status)");
+	$res = $pdo->prepare("INSERT INTO categorias (nome, nome_url, imagem) VALUES (:nome, :nome_url, :imagem)");
 	$res->bindValue(":imagem", $imagem);
 }else{
 
 	if($imagem == "sem-foto.jpg"){
-		$res = $pdo->prepare("UPDATE categorias SET nome = :nome, status = :status WHERE id = :id");
+		$res = $pdo->prepare("UPDATE categorias SET nome = :nome, nome_url = :nome_url WHERE id = :id");
 	}else{
-		$res = $pdo->prepare("UPDATE categorias SET nome = :nome, imagem = :imagem, status = :status WHERE id = :id");
+		$res = $pdo->prepare("UPDATE categorias SET nome = :nome, nome_url = :nome_url, imagem = :imagem WHERE id = :id");
 		$res->bindValue(":imagem", $imagem);
 	}
 
 	$res->bindValue(":id", $id);
-
 }
 
-$res->bindValue(":nome", $nome);
-$res->bindValue(":status", $status);
-$res->execute();
+	$res->bindValue(":nome", $nome);
+	$res->bindValue(":nome_url", $nome_url);
+	
+	
+	
+	
+
+	$res->execute();
 
 
 echo 'Salvo com Sucesso!!';

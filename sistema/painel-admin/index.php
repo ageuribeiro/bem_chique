@@ -1,280 +1,307 @@
 <?php
 require_once("../../conexao.php");
-require_once("../../config.php");
-
 @session_start();
-$_SESSION['nivel_usuario'] == 'Owner';
-$usuarioAutenticado = false;
-
 //verificar se o usuário está autenticado
 if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') {
-    echo "<script type='text/javascript'> window.location='../index.php' </script>";
+    echo "<script language='javascript'> window.location='../index.php' </script>";
 }
-
 
 //variaveis para o menu
 $pag = @$_GET["pag"];
-$menu1 = "dashboard";
-$menu2 = "categorias";
-$menu3 = "produtos";
-$menu4 = "clientes";
-$menu5 = "pedidos";
-$menu6 = "vendas";
-$menu7 = "estoque";
-$menu8 = "carrinho";
-$menu9 = "pagamentos";
-$menu10 = "blogs";
-$menu11 = "chat";
-$menu12 = "promocoes";
+$menu1 = "produtos"; //cadastrar
+$menu2 = "categorias"; // cadastrar
+$menu3 = "carrinho"; //consultar
+$menu4 = "pedidos"; //consultar
+$menu5 = "promocoes"; //cadastrar
+$menu6 = "clientes"; // consultar
+$menu7 = "vendas"; // consultar
+$menu8 = "pagamentos"; // consultar
+$menu9 = "blogs"; // cadastrar
+$menu10 = "estoque"; // consultar
+$menu11 = "consulta_estoque"; // consultar
+$menu12 = "transacao_estoque"; // consultar
 
 //CONSULTAR O BANCO DE DADOS E TRAZER OS DADOS DO USUÁRIO
 $res = $pdo->query("SELECT * FROM usuarios where id = '$_SESSION[id_usuario]'");
 $dados = $res->fetchAll(PDO::FETCH_ASSOC);
-$nome_usuario = @$dados[0]['nome'];
-$function = @$dados[0]['position'];
-$email_usuario = @$dados[0]['email'];
-$cpf_usuario = @$dados[0]['cpf'];
-$img_usuario = @$dados[0]['image'];
-$senha_usuario = @$dados[0]['senha'];
-$confirmar_senha_usuario = @$dados[0]['senha'];
+$nome_usu = @$dados[0]['nome'];
+$email_usu = @$dados[0]['email'];
+$cpf_usu = @$dados[0]['cpf'];
+$perfil_usu = @$dados[0]['perfil'];
+
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/painel.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Hugo Vasconcelos">
+
+    <title>Painel Administrativo</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="shortcut icon" href="img/logotipo/simbolo-preto.png" type="image/x-icon">
-    <title>Manager Panel - Bem Chique</title>
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="shortcut icon" href="../../img/logotipo/simbolo-preto.png" type="image/x-icon">
+    <link rel="icon" href="../../img/logotipo/simbolo-preto.png" type="image/x-icon">
+
 </head>
 
-<body>
-    <div class="menu">
-        <nav class="sidebar fade-in slide-in" id="sidebar-menu">
-            <div class="logo_content">
-                <div class="logo">
-                    <img src="img/logotipo/logo_bemchique.jpg" alt="#" class="rounded-circle">
-                    <div class="logo_name"><a href="../index.php"><?php echo $nome_loja ?></a></div>
-                </div>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+                <div class="sidebar-brand-text mx-3"><?php echo $perfil_usu; ?></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Cadastros
             </div>
-            <i class='bx bx-menu' id="toggle"></i>
-            <ul class="sidebar-menu">
-                <li>
-                    <i class='bx bx-search icon'></i>
-                    <input type="search" name="search" id="search" placeholder="Search...">
-                </li>
 
-                <li class="sidebar-menu-link <?php if ($pag === $menu1) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu1 ?>">
-                        <i class='bx bx-bar-chart icon'></i>
-                        <span class="links_name">Dashboard</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu2) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu2 ?>">
-                        <i class='bx bx-category icon'></i>
-                        <span class="links_name">Category</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu3) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu3 ?>">
-                        <i class='bx bx-cart-add icon'></i>
-                        <span class="links_name">Products</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu4) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu4 ?>">
-                        <i class='bx bx-user icon'></i>
-                        <span class="links_name">Customer</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu5) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu5 ?>">
-                        <i class='bx bx-receipt icon'></i>
-                        <span class="links_name">Orders</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu6) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu6 ?>">
-                        <i class='bx bx-money-withdraw icon'></i>
-                        <span class="links_name"> Sales</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu7) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu7 ?>">
-                        <i class='bx bx-box icon'></i>
-                        <span class="links_name">Stock</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu8) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu8 ?>">
-                        <i class='bx bx-cart icon'></i>
-                        <span class="links_name">Cart</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu9) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu9 ?>">
-                        <i class='bx bx-coin icon'></i>
-                        <span class="links_name">Pay</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu10) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu10 ?>">
-                        <i class='bx bx-bookmark icon'></i>
-                        <span class="links_name">Blogs</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu11) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu11 ?>">
-                        <i class='bx bx-chat icon'></i>
-                        <span class="links_name">Chat</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-
-                <li class="sidebar-menu-link <?php if ($pag === $menu12) echo 'active'; ?>">
-                    <a href="index.php?pag=<?php echo $menu12 ?>">
-                        <i class='bx bx-chat icon'></i>
-                        <span class="links_name">Promoções</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-            </ul>
-            <div class="profile-content">
-                <div class="profile">
-                    <div class="profile-details">
-                        <div class="user-profile">
-                            <img src="<?php echo @$img_usuario; ?>" alt="image-profile">
-                            <i class='bx bx-cog settingsProfile'></i>
-                        </div>
-                        <div class="name_job">
-                            <div class="name"><?php echo @$nome_usuario; ?></div>
-                            <div class="job"><?php echo @$function; ?></div>
-                        </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-box-open"></i>
+                    <span>Estoque</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Novo Produto</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Nova Categoria</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu5 ?>">Nova Promoção</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu10 ?>">Controle de Estoque</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu11 ?>">Consultar Estoque</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu12 ?>">Transações Estoque</a>
                     </div>
-                    <i class="bx bx-log-out" id="log_out"></i>
                 </div>
-            </div>
-        </nav>
-    </div>
+            </li>
 
-    <main class="content">
-        <div class="pages fade-in slide-in" id="content-pages">
-            <div id="title-top-table" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom ">
-                <h2 class="h2 first-letter-uppercase"><?php echo $pag; ?></h2>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            
+            <div class="sidebar-heading">
+                Consultas
+            </div>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu3 ?>">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Carrinho</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu4 ?>">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Pedidos</span></a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Clientes</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Vendas</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu8 ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Pagamentos</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu9 ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Blog</span></a>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-            <?php if ($pag == null) {
-                include_once("dashboard.php");
-            } else if ($pag == $menu1) {
-                include_once($menu1 . ".php");
-            } else if ($pag == $menu2) {
-                include_once($menu2 . ".php");
-            } else if ($pag == $menu3) {
-                include_once($menu3 . ".php");
-            } else if ($pag == $menu4) {
-                include_once($menu4 . ".php");
-            } else if ($pag == $menu5) {
-                include_once($menu5 . ".php");
-            } else if ($pag == $menu6) {
-                include_once($menu6 . ".php");
-            } else if ($pag == $menu7) {
-                include_once($menu7 . ".php");
-            } else if ($pag == $menu8) {
-                include_once($menu8 . ".php");
-            } else if ($pag == $menu9) {
-                include_once($menu9 . ".php");
-            } else if ($pag == $menu10) {
-                include_once($menu10 . ".php");
-            } else if ($pag == $menu11) {
-                include_once($menu11 . ".php");
-            } else if ($pag == $menu12) {
-                include_once($menu12 . ".php");
-            } else {
-                include_once("dashboard.php");
-            }
-            ?>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo @$nome_usu ?></span>
+                                <img class="img-profile rounded-circle" src="../../img/sem-foto.jpg">
+
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#ModalPerfil">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-primary"></i>
+                                    Editar Perfil
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="../logout.php">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger"></i>
+                                    Sair
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <?php if ($pag == null) {
+                        include_once("home.php");
+                    } else if ($pag == $menu1) {
+                        include_once($menu1 . ".php");
+                    } else if ($pag == $menu2) {
+                        include_once($menu2 . ".php");
+                    } else if ($pag == $menu3) {
+                        include_once($menu3 . ".php");
+                    } else if ($pag == $menu4) {
+                        include_once($menu4 . ".php");
+                    } else if ($pag == $menu5) {
+                        include_once($menu5 . ".php");
+                    } else if ($pag == $menu6) {
+                        include_once($menu6 . ".php");
+                    } else if ($pag == $menu7) {
+                        include_once($menu7 . ".php");
+                    } else if ($pag == $menu8) {
+                        include_once($menu8 . ".php");
+                    } else if ($pag == $menu9) {
+                        include_once($menu9 . ".php");
+                    } else if ($pag == $menu10) {
+                        include_once($menu10 . ".php");
+                    } else {
+                        include_once("home.php");
+                    }
+                    ?>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
         </div>
-    </main>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
     <!--  Modal Perfil-->
-    <div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
-                    <button class="btn-close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"></span>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
+
                 <form id="form-perfil" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
 
-                        <div class="form-group my-3">
-                            <div class="imagem-container">
-                                <img src="<?php echo @$img_usuario; ?>" alt="picture-profile" name="picture-profile-edit" id="picture-profile-edit" class="rounded-circle picture-profile-edit">
-                            </div>
-                            <input value="<?php echo @$img_usuario ?>" type="file" class="form-control" id="image-usuario" name="image-usuario" placeholder="<?php echo @$img_usuario ?>">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input value="<?php echo @$nome_usu ?>" type="text" class="form-control" id="nome-usuario" name="nome-usuario" placeholder="Nome">
                         </div>
 
-                        <div class="form-group my-3">
-                            <label for="nome-usuario">Nome</label>
-                            <input value="<?php echo @$nome_usuario ?>" type="text" class="form-control" id="nome-usuario" name="nome-usuario" placeholder="Nome">
+                        <div class="form-group">
+                            <label>CPF</label>
+                            <input value="<?php echo @$cpf_usu ?>" type="text" class="form-control" id="cpf-usuario" name="cpf-usuario" placeholder="CPF">
                         </div>
 
-                        <div class="form-group my-3">
-                            <label for="cpf-usuario">CPF</label>
-                            <input value="<?php echo @$cpf_usuario ?>" type="text" class="form-control" id="cpf-usuario" name="cpf-usuario" placeholder="CPF">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input value="<?php echo @$email_usu ?>" type="email" class="form-control" id="email-usuario" name="email-usuario" placeholder="Email">
                         </div>
 
-                        <div class="form-group my-3">
-                            <label for="email-usuario">Email</label>
-                            <input value="<?php echo @$email_usuario ?>" type="email" class="form-control" id="email-usuario" name="email-usuario" placeholder="Email">
-                        </div>
-
-                        <div class="row my-3">
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="senha">Senha</label>
-                                    <input value="<?php echo @$senha_usuario ?>" type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
+                                    <label>Senha</label>
+                                    <input value="" type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="conf-senha">Confirmar Senha</label>
-                                    <input value="<?php echo @$confirmar_senha_usuario ?>" type="password" class="form-control" id="conf-senha" name="conf-senha" placeholder="Senha">
+                                    <label>Confirmar Senha</label>
+                                    <input value="" type="password" class="form-control" id="conf-senha" name="conf-senha" placeholder="Senha">
                                 </div>
                             </div>
                         </div>
+
                         <small>
-                            <div id="mensagem-perfil" class="mr-4"></div>
+                            <div id="mensagem-perfil" class="mr-4">
+
+                            </div>
                         </small>
                     </div>
                     <div class="modal-footer">
+
                         <input value="<?php echo $_SESSION['id_usuario'] ?>" type="hidden" name="txtid" id="txtid">
                         <input value="<?php echo $_SESSION['cpf_usuario'] ?>" type="hidden" name="antigo" id="antigo">
 
@@ -286,13 +313,52 @@ $confirmar_senha_usuario = @$dados[0]['senha'];
         </div>
     </div>
 
-    <!-- Script JQuery para finalizar a sessão-->
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="static/js/script.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/chart-area-demo.js"></script>
+    <script src="../js/demo/chart-pie-demo.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 
 </html>
+
+<script type="text/javascript">
+    $('#btn-salvar-perfil').click(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "editar-perfil.php",
+            method: "post",
+            data: $('form').serialize(),
+            dataType: "text",
+            success: function(msg) {
+                if (msg.trim() === 'Salvo com Sucesso!') {
+
+                    $('#btn-fechar-perfil').click();
+                    window.location = 'index.php';
+
+                } else {
+                    $('#mensagem-perfil').addClass('text-danger')
+                    $('#mensagem-perfil').text(msg);
+
+
+                }
+            }
+        });
+    });
+</script>

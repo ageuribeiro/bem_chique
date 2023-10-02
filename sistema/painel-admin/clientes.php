@@ -1,22 +1,22 @@
 <?php
-    $pag = "clientes";
-    require_once("../../conexao.php");
-    @session_start();
-    //verificar se o usuário está autenticado
-    if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') {
-        echo "<script language='javascript'> window.location='../index.php' </script>";
-    }
+$pag = "clientes";
+require_once("../../conexao.php");
+@session_start();
+//verificar se o usuário está autenticado
+if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') {
+    echo "<script language='javascript'> window.location='../index.php' </script>";
+}
 
-    $query = $pdo->query("SELECT COUNT(*) AS SCORE FROM produtos");
-    $score = $query->fetchColumn();
+$query = $pdo->query("SELECT COUNT(*) AS SCORE FROM produtos");
+$score = $query->fetchColumn();
 ?>
 
 
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-    <h5> Clientes registrados: <span class="score"><?php echo @$score; ?></span></h5>
-    <button class="btn-add" type="button">
-        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Cliente <i class='bx bx-plus'></i></a>
-    </button>
+    <h6> Clientes registrados: <span class="score"><?php echo @$score; ?></span></h6>
+    <div class="row mt-4 mb-4">
+        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo" class="btn btn-primary btn-sm ml-3 d-none d-md-block"> <i class='bx bx-plus' ></i> Novo Cliente </a>
+    </div>
 </div>
 
 <!-- DataTales Example -->
@@ -44,7 +44,7 @@
                 $nome = $res[$i]['nome'];
                 $decricao = $res[$i]['descricao'];
                 $imagem = $res[$i]['imagem'];
-                ?>
+            ?>
                 <tr>
                     <td class="text-center align-middle">
                         <?php echo $nome ?>
@@ -52,8 +52,8 @@
                     <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
                     <td class="text-center align-middle"><?php echo $decricao ?></td>
                     <td class="text-center align-middle">
-                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Dados'><i class='bx bxs-edit icon' ></i></a>
-                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Registro'><i class='bx bx-trash icon' ></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Dados'><i class='bx bxs-edit icon'></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Registro'><i class='bx bx-trash icon'></i></a>
                     </td>
                 </tr>
             <?php } ?>
@@ -63,8 +63,7 @@
 
 
 <!-- Modal Dados-->
-<div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -95,28 +94,23 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nome-categoria">Nome</label>
-                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-categoria"
-                            name="nome-categoria" placeholder="Nome">
+                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-categoria" name="nome-categoria" placeholder="Nome">
                     </div>
                     <div class="form-group">
                         <label for="descricao-categoria">Descrição</label>
-                        <input value="<?php echo @$descricao2 ?>" type="text" class="form-control"
-                            id="descricao-categoria" name="descricao-categoria" placeholder="Descrição">
+                        <input value="<?php echo @$descricao2 ?>" type="text" class="form-control" id="descricao-categoria" name="descricao-categoria" placeholder="Descrição">
                     </div>
                     <div class="form-group">
                         <label for="imagem-categoria">Imagem</label>
-                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file"
-                            id="imagem-categoria" name="imagem-categoria" onChange="carregarImg();">
+                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem-categoria" name="imagem-categoria" onChange="carregarImg();">
                     </div>
 
                     <?php if (@$imagem2 != "") { ?>
-                        <img src="../painel-admin/img/categorias/<?php echo $imagem2 ?>" width="200" height="200"
-                            id="target" class="rounded">
-                        <?php
+                        <img src="../painel-admin/img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target" class="rounded">
+                    <?php
                     } else {
-                        ?>
-                        <img src="../painel-admin/img/categorias/sem-foto.png" width="200" height="200" id="target"
-                            class="rounded">
+                    ?>
+                        <img src="../painel-admin/img/categorias/sem-foto.png" width="200" height="200" id="target" class="rounded">
                     <?php } ?>
                     <small>
                         <div id="mensagem"></div>
@@ -125,8 +119,7 @@
                 <div class="modal-footer">
                     <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
                     <input value="<?php echo @$nome2 ?>" type="hidden" name="antigo" id="antigo">
-                    <button type="button" id="btn-fechar" class="btn btn-secondary"
-                        data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
@@ -149,8 +142,7 @@
                 <div align="center" id="mensagem_excluir" class=""></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                    id="btn-cancelar-excluir">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
                 <form method="post">
 
                     <input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
@@ -180,7 +172,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
 <script type="text/javascript">
-    $("#form").submit(function () {
+    $("#form").submit(function() {
         var pag = "<?= $pag ?>";
         event.preventDefault();
         var formData = new FormData(this);
@@ -190,7 +182,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
             type: 'POST',
             data: formData,
 
-            success: function (mensagem) {
+            success: function(mensagem) {
 
                 $('#mensagem').removeClass()
 
@@ -212,10 +204,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
             cache: false,
             contentType: false,
             processData: false,
-            xhr: function () {  // Custom XMLHttpRequest
+            xhr: function() { // Custom XMLHttpRequest
                 var myXhr = $.ajaxSettings.xhr();
                 if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                    myXhr.upload.addEventListener('progress', function () {
+                    myXhr.upload.addEventListener('progress', function() {
                         /* faz alguma coisa durante o progresso do upload */
                     }, false);
                 }
@@ -227,9 +219,9 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         var pag = "<?= $pag ?>";
-        $('#btn-deletar').click(function (event) {
+        $('#btn-deletar').click(function(event) {
             event.preventDefault();
 
             $.ajax({
@@ -237,7 +229,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
-                success: function (mensagem) {
+                success: function(mensagem) {
 
                     if (mensagem.trim() === 'Excluído com Sucesso!!') {
                         $('#btn-cancelar-excluir').click();
@@ -257,7 +249,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
         var target = document.getElementById('target');
         var file = document.querySelector("input[type=file]").files[0];
         var reader = new FileReader();
-        reader.onloadend = function () {
+        reader.onloadend = function() {
             target.src = reader.result;
         };
         if (file) {
@@ -269,7 +261,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#dataTable').dataTable({
             "ordering": false
         });

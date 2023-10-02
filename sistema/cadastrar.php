@@ -45,18 +45,17 @@ if (@count($dados) == 0) {
 	$res->bindValue(":cpf", $cpf);
 	$res->bindValue(":senha", $senha);
 	$res->bindValue(":senha_crip", $senha_crip);
-	$res->bindValue(":nivel", 'Cliente');
+	$res->bindValue(":nivel", 'user');
 
 	$res->execute();
 
-
-	$res = $pdo->prepare("INSERT into clientes (nome, cpf, email) values (:nome, :cpf, :email)");
+	$res = $pdo->prepare("INSERT into clientes (nome, cpf, email, senha) values (:nome, :cpf, :email, :senha)");
 	$res->bindValue(":nome", $nome);
 	$res->bindValue(":email", $email);
 	$res->bindValue(":cpf", $cpf);
+	$res->bindValue(":senha", $senha);
 
 	$res->execute();
-
 
 	$res = $pdo->query("SELECT * FROM emails where email = '$email'");
 	$dados = $res->fetchAll(PDO::FETCH_ASSOC);
@@ -67,7 +66,6 @@ if (@count($dados) == 0) {
 		$res->bindValue(":ativo", "Sim");
 		$res->execute();
 	}
-
 
 	echo 'Cadastrado com Sucesso!';
 } else {

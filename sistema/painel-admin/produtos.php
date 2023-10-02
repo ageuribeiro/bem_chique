@@ -1,24 +1,20 @@
 <?php
-    $pag = "produtos";
-    require_once("../../conexao.php"); 
-    @session_start();
-        //verificar se o usuário está autenticado
-    if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner'){
-        echo "<script language='javascript'> window.location='../index.php' </script>";
-    } 
+$pag = "produtos";
+require_once("../../conexao.php");
+@session_start();
+//verificar se o usuário está autenticado
+if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') {
+    echo "<script language='javascript'> window.location='../index.php' </script>";
+}
 
-    $query = $pdo->query("SELECT COUNT(*) AS SCORE FROM produtos");
-    $score = $query->fetchColumn();
+$query = $pdo->query("SELECT COUNT(*) AS SCORE FROM produtos");
+$score = $query->fetchColumn();
 ?>
 
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-    <button type="button" class="btn btn-primary position-relative"> Novos <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>
-    <button type="button" class="btn btn-secondary position-relative"> Vendidos <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>
-    <button type="button" class="btn btn-warning position-relative"> Esgotados <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>
-    <button type="button" class="btn btn-danger position-relative"> Promoção <span class="score position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo @$score; ?></span></button>
-    <button class="btn-add" type="button">
-        <a type="button" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Produto <i class='bx bx-plus' ></i></a>
-    </button>
+    <div class="row mt-4 mb-4">
+        <a type="button" class="btn btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo"> <i class='bx bx-plus'></i> Novo Produto</a>
+    </div>
 </div>
 
 <!-- DataTales Example -->
@@ -26,37 +22,50 @@
     <table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th class="text-center" scope="col">Nome</th>
                 <th class="text-center" scope="col">Código GTIN</th>
+                <th class="text-center" scope="col">Nome</th>
+                <th class="text-center" scope="col">Quantidade</th>
                 <th class="text-center" scope="col">Descrição</th>
                 <th class="text-center" scope="col">Cor</th>
+                <th class="text-center" scope="col">Valor</th>
+                <th class="text-center" scope="col">Observação</th>
+                <th class="text-center" scope="col">Foto</th>
                 <th class="text-center" scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
-            <?php 
-                $query = $pdo->query("SELECT * FROM produtos order by id desc ");
-                $res = $query->fetchAll(PDO::FETCH_ASSOC);
+            <?php
+            $query = $pdo->query("SELECT * FROM produtos order by id desc ");
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                for ($i=0; $i < count($res); $i++) { 
-                    foreach ($res[$i] as $key => $value) {
-                    }
+            for ($i = 0; $i < count($res); $i++) {
+                foreach ($res[$i] as $key => $value) {
+                }
 
-                    $id = $res[$i]['id'];
-                    $nome = $res[$i]['nome'];
-                    $codGTIN = $res[$i]['codigo_gtin'];
-                    $cor = $res[$i]['cor'];
-                    $decricao = $res[$i]['descricao'];
+                $id = $res[$i]['id'];
+                $codigo = $res[$i]['codigo_gtin'];
+                $nome = $res[$i]['nome'];
+                $quantidade = $res[$i]['quantidade'];
+                $decricao = $res[$i]['descricao'];
+                $cor = $res[$i]['cor'];
+                $valor = $res[$i]['valor'];
+                $observacao = $res[$i]['observacao'];
+                $imagem = $res[$i]['imagem'];
             ?>
-            <tr>
-                <td><?php echo $nome ?></td>
-                <td><?php echo $decricao ?></td>
-                <!-- <td><img src="../../img/categorias/<?php # echo $imagem ?>" width="50"></td> -->
-                <td>
-                    <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar produto'><i class='bx bxs-edit icon' ></i></a>
-                    <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir produto'><i class='bx bx-trash icon' ></i></a>
-                </td>
-            </tr>
+                <tr>
+                    <td class="text-center align-middle"><?php echo $codigo ?></td>
+                    <td class="text-center align-middle"><?php echo $nome ?></td>
+                    <td class="text-center align-middle"><?php echo $quantidade ?></td>
+                    <td class="text-center align-middle"><?php echo $decricao ?></td>
+                    <td class="text-center align-middle"><?php echo $cor ?></td>
+                    <td class="text-center align-middle"><?php echo $valor ?></td>
+                    <td class="text-center align-middle"><?php echo $observacao ?></td>
+                    <td class="text-center align-middle"><img src="../../img/categorias/<?php echo $imagem; ?>" width="50"></td>
+                    <td>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar produto'><i class='bx bxs-edit icon'></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir produto'><i class='bx bx-trash icon'></i></a>
+                    </td>
+                </tr>
             <?php } ?>
         </tbody>
     </table>
@@ -64,51 +73,100 @@
 
 <!-- Modal Dados-->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <?php 
-                if (@$_GET['funcao'] == 'editar') 
-                {
-                    $titulo = "Editar Categoria";
+                <?php
+                if (@$_GET['funcao'] == 'editar') {
+                    $titulo = "Editar Produto";
                     $id2 = $_GET['id'];
 
-                    $query = $pdo->query("SELECT * FROM categorias where id = '" . $id2 . "' ");
+                    $query = $pdo->query("SELECT * FROM produtos where id = '" . $id2 . "' ");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
+                    $codGTIN2 = $res[0]['codigo_gtin'];
                     $nome2 = $res[0]['nome'];
+                    $quantidade2 = $res[0]['quantidade'];
+                    $decricao2 = $res[0]['descricao'];
+                    $cor2 = $res[0]['cor'];
+                    $valor2 = $res[0]['valor'];
+                    $observacao2 = $res[0]['observacao'];
                     $imagem2 = $res[0]['imagem'];
-                } 
-                else 
-                {
-                    $titulo = "Inserir Registro";
+                } else {
+                    $titulo = "Cadastrar Produto";
                 }
                 ?>
-                
-                <h5 class="modal-title" id="exampleModalLabel"><?php echo $titulo ?></h5>
+
+                <h5 class="modal-title text-primary font-weight-bold" id="exampleModalLabel"><?php echo $titulo ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form id="form" method="POST">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label >Nome</label>
-                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-cat" name="nome-cat" placeholder="Nome">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="codigo-gtin-prod">Código GTIN</label>
+                                <input value="<?php echo @$codGTIN2 ?>" type="text" class="form-control" id="codigo-gtin-prod" name="nome-cat" placeholder="Código de barra">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="nome-prod">Nome</label>
+                                <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-prod" name="nome-prod" placeholder="Nome">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="quantidade-prod">Quantidade</label>
+                                <input value="<?php echo @$quantidade2 ?>" type="text" class="form-control" id="quantidade-prod" name="quantidade-prod" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="desc-prod">Descrição</label>
+                                <input value="<?php echo @$decricao2 ?>" type="text" class="form-control" id="desc-prod" name="desc-prod" placeholder="Descriçao do produto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="cor-prod">Cor</label>
+                                <input value="<?php echo @$cor2 ?>" type="text" class="form-control" id="cor-prod" name="cor-prod" placeholder="#000000">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="valor-prod">Valor</label>
+                                <input value="<?php echo @$valor2 ?>" type="text" class="form-control" id="valor-prod" name="valor-prod" placeholder="Valor do produto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="observacao-prod">Observação </label>
+                                <textarea  class="form-control" name="observacao-prod" id="observacao-prod" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label >Imagem</label>
-                        <input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
+                        <label for="imagem-prod">Imagem</label>
+                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem-prod" name="imagem-prod" onChange="carregarImg();">
                     </div>
 
-                    <?php if(@$imagem2 != ""){ ?>
-                    	 <img src="../../img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target">
-                 	<?php  }else{ ?>
-                    <img src="../../img/categorias/sem-foto.jpg" width="200" height="200" id="target">
-                	<?php } ?>
+                    <?php if (@$imagem2 != "") { ?>
+                        <img src="../../img/categorias/<?php echo $imagem2 ?>" width="100" height="100" id="target" class="rounded">
+                    <?php  } else { ?>
+                        <img src="../../img/categorias/sem-foto.jpg" width="100" height="100" id="target" class="rounded">
+                    <?php } ?>
                     <small>
                         <div id="mensagem"></div>
-                    </small> 
+                    </small>
                 </div>
                 <div class="modal-footer">
                     <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
@@ -145,7 +203,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
                 <form method="post">
 
-                    <input type="hidden" id="id"  name="id" value="<?php echo @$_GET['id'] ?>" required>
+                    <input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
 
                     <button type="button" id="btn-deletar" name="btn-deletar" class="btn btn-danger">Excluir</button>
                 </form>
@@ -158,7 +216,7 @@
 
 
 
-<?php 
+<?php
 
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
     echo "<script>$('#modalDados').modal('show');</script>";
@@ -179,8 +237,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
 <script type="text/javascript">
-    $("#form").submit(function () {
-        var pag = "<?=$pag?>";
+    $("#form").submit(function() {
+        var pag = "<?= $pag ?>";
         event.preventDefault();
         var formData = new FormData(this);
 
@@ -189,16 +247,16 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
             type: 'POST',
             data: formData,
 
-            success: function (mensagem) {
+            success: function(mensagem) {
 
                 $('#mensagem').removeClass()
 
                 if (mensagem.trim() == "Salvo com Sucesso!!") {
-                    
+
                     //$('#nome').val('');
                     //$('#cpf').val('');
                     $('#btn-fechar').click();
-                    window.location = "index.php?pag="+pag;
+                    window.location = "index.php?pag=" + pag;
 
                 } else {
 
@@ -212,10 +270,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
             cache: false,
             contentType: false,
             processData: false,
-            xhr: function () {  // Custom XMLHttpRequest
+            xhr: function() { // Custom XMLHttpRequest
                 var myXhr = $.ajaxSettings.xhr();
                 if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                    myXhr.upload.addEventListener('progress', function () {
+                    myXhr.upload.addEventListener('progress', function() {
                         /* faz alguma coisa durante o progresso do upload */
                     }, false);
                 }
@@ -231,9 +289,9 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        var pag = "<?=$pag?>";
-        $('#btn-deletar').click(function (event) {
+    $(document).ready(function() {
+        var pag = "<?= $pag ?>";
+        $('#btn-deletar').click(function(event) {
             event.preventDefault();
 
             $.ajax({
@@ -241,7 +299,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
-                success: function (mensagem) {
+                success: function(mensagem) {
 
                     if (mensagem.trim() === 'Excluído com Sucesso!!') {
 
@@ -265,14 +323,13 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--SCRIPT PARA CARREGAR IMAGEM -->
 <script type="text/javascript">
-
     function carregarImg() {
 
         var target = document.getElementById('target');
         var file = document.querySelector("input[type=file]").files[0];
         var reader = new FileReader();
 
-        reader.onloadend = function () {
+        reader.onloadend = function() {
             target.src = reader.result;
         };
 
@@ -284,11 +341,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
             target.src = "";
         }
     }
-
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#dataTable').dataTable({
             "ordering": false
         });
@@ -298,5 +354,3 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
 <script src="../../js/mascara.js"></script>
-
-

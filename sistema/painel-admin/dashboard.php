@@ -26,7 +26,7 @@
         <tbody>
             <?php 
                  
-            $query = $pdo->query("SELECT * FROM mockado order by id asc ");
+            $query = $pdo->query("SELECT * FROM produtos order by id asc ");
 
             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 

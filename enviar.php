@@ -1,19 +1,51 @@
-<?php 
-	require_once("config.php");
-	
-	$destinatario = $email;
-	$assunto = $nome_loja . ' - Email da Loja';
+<?php
+require_once("conexao.php");
 
-	$nome = $_POST['nome'];
-	$telefone = $_POST['telefone'];
-	$email_cliente = $_POST['email'];
-	$mensagem = utf8_decode('Nome: ' .$nome. "\r\n"."\r\n" .'Telefone: '.$telefone. "\r\n"."\r\n" .'Email: ' .$email. "\r\n"."\r\n" .'Mensagem: '.$_POST['mensagem']);
+if ($_POST['nome'] == "") {
+	echo 'Preencha o campo nome.';
+	exit();
+}
 
-	$remetente = $_POST['email'];
+if ($_POST['email'] == "") {
+	echo 'Preencha o campo email.';
+	exit();
+}
 
-	$header = "From: " . $remetente;
+if ($_POST['telefone'] == "") {
+	echo 'Preencha o campo telefone.';
+	exit();
+}
 
-	mail($destinatario, $assunto, $mensagem, $header);
-	// echo 'Enviado com sucesso!!!';
+if ($_POST['mensagem'] == "") {
+	echo 'Preencha o campo Mensagem.';
+	exit();
+}
 
-?>
+$destinatario = $email;
+$assunto = $nome_loja . ' - Email da Loja';
+
+$nome = $_POST['nome'];
+$telefone = $_POST['telefone'];
+$email_cliente = $_POST['email'];
+$mensagem = utf8_decode('Nome: ' . $nome . "\r\n" . "\r\n" . 'Telefone: ' . $telefone . "\r\n" . "\r\n" . 'Email: ' . $email . "\r\n" . "\r\n" . 'Mensagem: ' . $_POST['mensagem']);
+
+$remetente = $_POST['email'];
+
+$header = "From: " . $remetente;
+
+mail($destinatario, $assunto, $mensagem, $header);
+echo "Mensagem enviada com sucesso!!!";
+
+//Verificar se o email existe
+$res = $pdo->query("SELECT * FROM emails WHERE email = '$_POST[email]'");
+$dados = $res->fetchAll(PDO::FETCH_ASSOC);
+if (@count($dados) == 0) {
+	//Salvar dados no banco de dados
+	$res = $pdo->prepare("INSERT INTO emails (nome, email, ativo) VALUES (:nome, :email, :ativo)");
+	$res->bindValue(":nome", $_POST['nome']);
+	$res->bindValue(":email", $_POST['email']);
+	$res->bindValue(":ativo", "Sim");
+	$res->execute();
+}else{
+	echo 'Email já existe no banco de dados';
+}

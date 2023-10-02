@@ -6,195 +6,254 @@ require_once("../../conexao.php");
 if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') {
     echo "<script language='javascript'> window.location='../index.php' </script>";
 }
-?>
 
+?>
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-    <h5> Categorias registradas </h5>
-    <button type="button" class="btn-add btn-new-cat" data-toggle="modal" data-target="#modalNewCategory">Nova Categoria <i class='bx bx-plus'></i></button>
+    <div class="row mt-4 mb-4">
+        <a type="button" class="btn btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo"> <i class='bx bx-plus'></i> Nova Categoria</a>
+    </div>
 </div>
 
-<!-- DataTables Example -->
+<!-- DataTales Example -->
 <div class="table-responsive small">
     <table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th class="text-center" scope="col">#</th> 
                 <th class="text-center" scope="col">Nome</th>
-                <th class="text-center" scope="col">Descrição</th>
+                <th class="text-center" scope="col">Imagem</th>
+                <th class="text-center" scope="col">Data de Cadastro</th>
                 <th class="text-center" scope="col">Status</th>
-                <th class="text-center" scope="col">Data de Registro</th>
                 <th class="text-center" scope="col">Ações</th>
             </tr>
         </thead>
+
         <tbody>
+
             <?php
-            $query = $pdo->query("SELECT * FROM categorias order by id desc ");
 
-            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                $query = $pdo->query("SELECT * FROM categorias order by id desc ");
+                $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            for ($i = 0; $i < count($res); $i++) {
-                foreach ($res[$i] as $key => $value) {
-                }
+                for ($i = 0; $i < count($res); $i++) {
+                    foreach ($res[$i] as $key => $value) {
+                    }
 
-                $id = $res[$i]['id'];
-                $nome = $res[$i]['nome'];
-                $descricao = $res[$i]['descricao'];
-                $status = $res[$i]['status'];
-                $data_registro = $res[$i]['data_registro'];
-                
+                    $nome = $res[$i]['nome'];
+                    $imagem = $res[$i]['imagem'];
+                    $data = $res[$i]['data_registro'];
+                    $status = $res[$i]['status'];
+                    $id = $res[$i]['id'];
             ?>
-            <tr>
-            <td class="text-center align-middle"><?php echo $id ?></td>
-                <td class="text-center align-middle"><?php echo $nome ?></td>
-                <td class="text-center align-middle"><?php echo $descricao ?></td>
-                <td class="text-center align-middle"><?php echo $status ?></td>
-                <td class="text-center align-middle"><?php echo $data_registro ?></td>
-                <td class="text-center align-middle">
-                    <a id="editCategory" href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Categoria'><i class='bx bxs-edit icon'></i></a>
-                    <a id="deleteCategory" href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Categoria'><i class='bx bx-trash icon'></i></a>
-                </td>
-            </tr>
+
+
+                <tr>
+                    <td><?php echo $nome ?></td>
+                    <td><?php echo $itens ?></td>
+                    <td><img src="../../img/categorias/<?php echo $imagem ?>" width="50"></td>
+                    <td>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+                    </td>
+                </tr>
             <?php } ?>
         </tbody>
     </table>
 </div>
 
-<!-- Modal para cadastrar a nova categoria-->
-<div class="modal fade" id="modalNewCategory"  tabindex="-1" role="dialog" aria-labelledby="modalNewCategoryLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<!-- Modal -->
+<div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalNewCategoryLabel"> Registrar Categoria </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <?php
+                if (@$_GET['funcao'] == 'editar') {
+                    $titulo = "Editar Categoria";
+                    $id2 = $_GET['id'];
+
+                    $query = $pdo->query("SELECT * FROM categorias where id = '" . $id2 . "' ");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                    $nome2 = $res[0]['nome'];
+                    $imagem2 = $res[0]['imagem'];
+                 
+                    $status2 = $res[0]['status'];
+                } else {
+                    $titulo = "Inserir Categoria";
+                }
+
+
+                ?>
+
+                <h5 class="modal-title" id="exampleModalLabel"><?php echo $titulo ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <p class="alert p-0 m-0" id="alert" role="alert"></p>
+            <form id="form" method="POST">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="nome-categoria">Nome</label>
+                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-categoria" name="nome-categoria" placeholder="Nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="status-categoria">Status</label>
+                        <select value="<?php echo @$status2 ?>" type="text" class="form-control" id="status-categoria" name="status-categoria" placeholder="Status">
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
+                        </select>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label>Imagem</label>
+                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
+                    </div>
+
+                    <?php if (@$imagem2 != "") { ?>
+                        <img src="../../img/categorias/<?php echo $imagem2 ?>" width="150" height="150" id="target" class="rounded">
+                    <?php  } else { ?>
+                        <img src="../../img/categorias/sem-foto.jpg" width="150" height="150" id="target" class="rounded">
+                    <?php } ?>
+                    
+                    <small>
+                        <div id="mensagem">
+
+                        </div>
+                    </small>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
+                    <input value="<?php echo @$nome2 ?>" type="hidden" name="antigo" id="antigo">
+
+                    <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="modal" id="modal-deletar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir Registro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
-                <form action="/sistema/painel-admin/categorias/inserir.php" class="formNewCategory" method="POST" enctype="application/x-www-form-urlencoded">
-                    <div class="form-group my-4">
-                        <label for="nome-categoria">Nome:</label>
-                        <input type="text" class="form-control" name="nome-categoria" id="nome-categoria" placeholder="Introduza o nome" required>
-                    </div>
-                    <div class="form-group my-4">
-                        <label for="descricao-categoria">Descrição</label>
-                        <input type="text" class="form-control" name="descricao-categoria" id="descricao-categoria" placeholder="Introduza a descrição." required>
-                    </div>
-                    <div class="form-group my-4">
-                        <input type="checkbox" class="form-control-checkbox" name="status-categoria" id="status-categoria" checked>
-                        <label for="status-categoria"> Ativo </label>
-                    </div>
+
+                <p>Deseja realmente Excluir este Registro?</p>
+
+                <div align="center" id="mensagem_excluir" class="">
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
+                <form method="post">
+
+                    <input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
+
+                    <button type="button" id="btn-deletar" name="btn-deletar" class="btn btn-danger">Excluir</button>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success" id="submit">Adicionar</button>
-                <button type="button" class="btn btn-secondary" name="btn-cancel-add-category" id="btn-cancel-add-category" data-bs-dismiss="modal">Sair</button>
-            </div>
         </div>
     </div>
 </div>
 
-<!-- Modal para editar a categoria-->
-<div id="modalEditCategory" class="modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"> Editar Categoria </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success">Editar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Modal para deletar a categoria-->
-<div class="modal fade" id="modalDelCategory" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"> Deletar Categoria </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Você desejar excluir a categoria <?php echo $nome ?>?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Excluir</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
 
-    /* Ajax para cadastrar a Categoria */
-    $(document).ready(function () {
-        $('.btn-new-cat').click(function (e) { 
-            e.preventDefault();
-            $('#modalNewCategory').modal('show').show('slow');
-        });
 
-        $('#submit').click(function(e) {
-            e.preventDefault();
+<?php
 
-            var nome = $('#nome-categoria').val();
-            var descricao = $('#descricao-categoria').val();
-            var status = $('#status-categoria').val();
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
+    echo "<script>$('#modalDados').modal('show');</script>";
+}
 
-            var dataToSend = {
-                'nome-categoria' : nome,
-                'descricao-categoria' : descricao,
-                'status-categoria' : status
-            };
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "editar") {
+    echo "<script>$('#modalDados').modal('show');</script>";
+}
 
-            $.ajax({
-                url: "categorias/inserir.php",
-                type: 'POST',
-                data: dataToSend
-                
-            })
-            .done(function(response){
-            
-               alert(response);
-               console.log(response);
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
+    echo "<script>$('#modal-deletar').modal('show');</script>";
+}
 
-                //Limpando os campos após o sucesso do pedido
-                var nome = $('#nome-categoria').val('');
-                var descricao = $('#descricao-categoria').val('');
-                var status = $('#status-categoria').val('');
-                location.reload();
-            })
-            .fail(function(error){
-                var mensageError = error.responseText;
-                console.log("Erro: " + mensageError);
-            });
+?>
+
+
+
+
+<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
+<script type="text/javascript">
+    $("#form").submit(function() {
+        var pag = "<?= $pag ?>";
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: pag + "/inserir.php",
+            type: 'POST',
+            data: formData,
+
+            success: function(mensagem) {
+
+                $('#mensagem').removeClass()
+
+                if (mensagem.trim() == "Salvo com Sucesso!!") {
+
+                    //$('#nome').val('');
+                    //$('#cpf').val('');
+                    $('#btn-fechar').click();
+                    window.location = "index.php?pag=" + pag;
+
+                } else {
+
+                    $('#mensagem').addClass('text-danger')
+                }
+
+                $('#mensagem').text(mensagem)
+
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+            xhr: function() { // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function() {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
+            }
         });
     });
+</script>
 
-    /* Ajax para editar a Categoria */
-    $(document).ready(function () {
-        $('#editCategory').click(function (e) { 
-            e.preventDefault();
-            $('#modalEditCategory').modal('show');
-        });
-    });
 
-<<<<<<< HEAD
-    /* Ajax para deletar a Categoria */
-    $(document).ready(function () {
-        $('#deleteCategory').click(function (e) { 
-            e.preventDefault();
-            $('#modalDelCategory').modal('show');
-        });
-    });
-=======
+
+
+
+<!--AJAX PARA EXCLUSÃO DOS DADOS -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var pag = "<?= $pag ?>";
+        $('#btn-deletar').click(function(event) {
+            event.preventDefault();
+
             $.ajax({
                 url: pag + "/excluir.php",
                 method: "post",
@@ -210,11 +269,17 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
                     }
 
                     $('#mensagem_excluir').text(mensagem)
+
+
+
                 },
-            });
-        });
-    });
+
+            })
+        })
+    })
 </script>
+
+
 
 <!--SCRIPT PARA CARREGAR IMAGEM -->
 <script type="text/javascript">
@@ -236,5 +301,21 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
             target.src = "";
         }
     }
->>>>>>> 9746acd5eca7353612d1301f77bc13c2805eb660
 </script>
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dataTable').dataTable({
+            "ordering": false
+        })
+
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+<script src="../../js/mascara.js"></script>
