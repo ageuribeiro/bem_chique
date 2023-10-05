@@ -1,6 +1,7 @@
 <?php
 $pag = "produtos";
 require_once("../../conexao.php");
+require_once("../../config.php");
 @session_start();
 //verificar se o usuário está autenticado
 if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') {
@@ -26,6 +27,7 @@ $score = $query->fetchColumn();
                 <th class="text-center" scope="col">Nome</th>
                 <th class="text-center" scope="col">Quantidade</th>
                 <th class="text-center" scope="col">Descrição</th>
+                <th class="text-center" scope="col">Categoria</th>
                 <th class="text-center" scope="col">Cor</th>
                 <th class="text-center" scope="col">Valor</th>
                 <th class="text-center" scope="col">Observação</th>
@@ -43,10 +45,11 @@ $score = $query->fetchColumn();
                 }
 
                 $id = $res[$i]['id'];
-                $codigo = $res[$i]['codigo_gtin'];
+                $codigo = $res[$i]['codGTIN'];
                 $nome = $res[$i]['nome'];
                 $quantidade = $res[$i]['quantidade'];
                 $decricao = $res[$i]['descricao'];
+                $categoria = $res[$i]['categoria'];
                 $cor = $res[$i]['cor'];
                 $valor = $res[$i]['valor'];
                 $observacao = $res[$i]['observacao'];
@@ -55,15 +58,30 @@ $score = $query->fetchColumn();
                 <tr>
                     <td class="text-center align-middle"><?php echo $codigo ?></td>
                     <td class="text-center align-middle"><?php echo $nome ?></td>
-                    <td class="text-center align-middle"><?php echo $quantidade ?></td>
-                    <td class="text-center align-middle"><?php echo $decricao ?></td>
-                    <td class="text-center align-middle"><?php echo $cor ?></td>
-                    <td class="text-center align-middle"><?php echo $valor ?></td>
-                    <td class="text-center align-middle"><?php echo $observacao ?></td>
-                    <td class="text-center align-middle"><img src="../../img/categorias/<?php echo $imagem; ?>" width="50"></td>
+                    <td class="text-center align-middle">
+                        <?php 
+                            if($quantidade < $quant_minimo)
+                            {
+                                echo "<p class='text-danger fw-bold'>".$quantidade."</p>";
+                            }
+                            elseif($quantidade > $quant_minimo and $quantidade < $quant_media)
+                            {
+                                echo "<p class='text-warning fw-bold'>".$quantidade."</p>";
+                            }
+                            else{
+                                echo "<p class='text-success fw-bold'>".$quantidade."</p>";
+                            }
+                        ?>
+                    </td>
+                    <td class="text-justify align-middle w-15"><?php echo $decricao ?></td>
+                    <td class="text-center align-middle"><?php echo $categoria ?></td>
+                    <td class="text-center align-middle"><i class='bx bxs-checkbox mx-5' style='color: <?php echo $cor ?>; font-size: 35px;' ></i></td>
+                    <td class="text-center align-middle w-5">R$: <?php echo $valor ?></td>
+                    <td class="text-justify align-middle w-15"><?php echo $observacao ?></td>
+                    <td class="text-center align-middle"><img src="../../img/produtos/<?php echo $imagem; ?>" width="50" class="rounded"></td>
                     <td>
-                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar produto'><i class='bx bxs-edit icon'></i></a>
-                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir produto'><i class='bx bx-trash icon'></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn btn-outline-primary m-3' title='Editar produto'><i class='bx bxs-edit icon'></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn btn-outline-danger m-3' title='Excluir produto'><i class='bx bx-trash icon'></i></a>
                     </td>
                 </tr>
             <?php } ?>
@@ -84,7 +102,7 @@ $score = $query->fetchColumn();
                     $query = $pdo->query("SELECT * FROM produtos where id = '" . $id2 . "' ");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                    $codGTIN2 = $res[0]['codigo_gtin'];
+                    $codGTIN2 = $res[0]['codGTIN'];
                     $nome2 = $res[0]['nome'];
                     $quantidade2 = $res[0]['quantidade'];
                     $decricao2 = $res[0]['descricao'];
@@ -107,14 +125,14 @@ $score = $query->fetchColumn();
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="codigo-gtin-prod">Código GTIN</label>
-                                <input value="<?php echo @$codGTIN2 ?>" type="text" class="form-control" id="codigo-gtin-prod" name="nome-cat" placeholder="Código de barra">
+                                <label for="code">Código GTIN</label>
+                                <input value="<?php echo @$codGTIN2 ?>" type="text" class="form-control" id="code" name="code" placeholder="Código de Barra">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="nome-prod">Nome</label>
-                                <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-prod" name="nome-prod" placeholder="Nome">
+                                <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-prod" name="nome-prod" placeholder="Nome do Produto">
                             </div>
                         </div>
                     </div>
@@ -127,10 +145,26 @@ $score = $query->fetchColumn();
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="desc-prod">Descrição</label>
-                                <input value="<?php echo @$decricao2 ?>" type="text" class="form-control" id="desc-prod" name="desc-prod" placeholder="Descriçao do produto">
+                                <label for="categoria-prod">Categoria</label>
+                                <select value="<?php echo @$categoria2 ?>" type="text" class="form-control" id="categoria-prod" name="categoria-prod">
+                                    <option value="none">Escolha a categoria</option>
+                                    <?php
+                                        $query = $pdo->query("SELECT * FROM categorias WHERE status='ativo' ORDER BY id DESC ");
+                                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                                        for ($i = 0; $i < count($res); $i++) {
+                                            foreach ($res[$i] as $key => $value) {
+                                            }
+                                            $id = $res[$i]['id'];
+                                            $nome = $res[$i]['nome'];
+                                        ?>
+                                            <option value="<?php echo $nome;?>"><?php echo $nome;?></option>
+                                        <?php
+                                        }
+                                    ?>
+                                </select>
                             </div>
                         </div>
+                        
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -150,7 +184,15 @@ $score = $query->fetchColumn();
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="observacao-prod">Observação </label>
-                                <textarea  class="form-control" name="observacao-prod" id="observacao-prod" cols="30" rows="5"></textarea>
+                                <textarea value="<?php echo @$observacao2 ?>" class="form-control" name="observacao-prod" id="observacao-prod" cols="30" rows="5" minlength="50" maxlength="400"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="desc-prod">Descrição</label>
+                                <textarea value="<?php echo @$decricao2 ?>" type="text" class="form-control" id="desc-prod" name="desc-prod" cols="30" rows="5" minlength="50" maxlength="400"></textarea>
                             </div>
                         </div>
                     </div>

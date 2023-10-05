@@ -2,10 +2,10 @@
 require_once("base.php");
 require_once("config.php");
 ?>
-<header class="bg-rosa-blush pb-2">
+<header class="bg-body-bemchique pb-2">
     <div class="container-fluid">
         <div class="row">
-            <nav class="navbar navbar-expand-lg navbar-light bg-rosa-blush rounded">
+            <nav class="navbar navbar-expand-lg navbar-light bg-body-bemchique rounded">
                 <div class="container">
                     <div class="col-lg-2">
                         <div class="d-flex m-auto">

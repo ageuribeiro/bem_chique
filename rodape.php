@@ -8,33 +8,35 @@ include_once('base.php');
         <div class="row m-3">
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="footer align-items-center justify-content-center">
-                    <h6 class="mb-5">Fale Conosco</h6>
-                    <div class="footer__about__logo">
-                        <a href="./index.html"><img src="img/logotipo/logo-principal.png" alt="logo" width="80" class="rounded-circle"></a>
-                    </div>
-                    <div class="my-5">
-                        <p> Telefone: <?php echo $telefone ?></p>
-                        <p> Email: <?php echo $email ?></p>
-                    </div>
-                    <h6 class="mt-5">Formas de pagamento</h6>
-                    <div class="footer__copyright__payment" class="my-5">
-                        <i class="fa-brands fa-cc-visa" aria-hidden="true"></i>
-                        <i class="fa-brands fa-cc-mastercard" aria-hidden="true"></i>
-                        <i class="fa-brands fa-pix" aria-hidden="true"></i>
-                        <i class="fa-solid fa-barcode" aria-hidden="true"></i>
-                    </div>
+                    <small>
+                        <h6 class="mb-5 small">Fale Conosco</h6>
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="img/logotipo/logo-principal.png" alt="logo" width="80" class="rounded-circle"></a>
+                        </div>
+                        <div class="my-5">
+                            <p class="small"> Telefone: <?php echo $telefone ?></p>
+                            <p class="small"> Email: <?php echo $email ?></p>
+                        </div>
+                        <h6 class="mt-5">Formas de pagamento</h6>
+                        <div class="footer__copyright__payment" class="my-5">
+                            <i class="fa-brands fa-cc-visa" aria-hidden="true"></i>
+                            <i class="fa-brands fa-cc-mastercard" aria-hidden="true"></i>
+                            <i class="fa-brands fa-pix" aria-hidden="true"></i>
+                            <i class="fa-solid fa-barcode" aria-hidden="true"></i>
+                        </div>
+                    </small>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 ">
                 <div class="d-block align-items-center justify-content-center">
-                    <h6 class="mb-5">Principais Links</h6>
-                    <ul class="list-unstyled text-start text-center">
-                        <li class="my-3"><a href="contatos.php" class="text-decoration-none text-dark">Contatos</a></li>
-                        <li class="my-3"><a href="sobre.php" class="text-decoration-none text-dark">Sobre</a></li>
-                        <li class="my-3"><a href="carrinho.php" class="text-decoration-none text-dark">Carrinho</a></li>
-                        <li class="my-3"><a href="blog.php" class="text-decoration-none text-dark">Blog</a></li>
-                        <li class="my-3"><a href="lista-produtos" class="text-decoration-none text-dark">Lista de Produtos</a></li>
-                        <li class="my-3"><a href="categorias.php" class="text-decoration-none text-dark">Categorias</a></li>
+                    <h6 class="mb-5 small"><small> Principais Links </small></h6>
+                    <ul class="list-unstyled text-start text-center small">
+                        <li class="my-3 small"><a href="contatos.php" class="text-decoration-none text-dark">Contatos</a></li>
+                        <li class="my-3 small"><a href="sobre.php" class="text-decoration-none text-dark">Sobre</a></li>
+                        <li class="my-3 small"><a href="carrinho.php" class="text-decoration-none text-dark">Carrinho</a></li>
+                        <li class="my-3 small"><a href="blog.php" class="text-decoration-none text-dark">Blog</a></li>
+                        <li class="my-3 small"><a href="lista-produtos" class="text-decoration-none text-dark">Lista de Produtos</a></li>
+                        <li class="my-3 small"><a href="categorias.php" class="text-decoration-none text-dark">Categorias</a></li>
                     </ul>
                 </div>
             </div>

@@ -16,79 +16,56 @@
                 </div>
             </div>
             <div class="grade row">
+
                 <?php
-                    if(isset($_POST['pesquisar'])) {
-                        $pesquisar = $_POST['pesquisar'];
-                        $search = $pdo->query("SELECT * FROM produtos WHERE nome LIKE '%$pesquisar%'");
-                        $res =  $search->fetchAll(PDO::FETCH_ASSOC);
-            
-                       
-                        foreach ($res[$i] as $key => $value) {
-                        
-                        $id = $res[$i]['id'];
-                        $codigo = $res[$i]['codigo_gtin'];
-                        $nome = $res[$i]['nome'];
-                        $decricao = $res[$i]['descricao'];
-                        $valor = $res[$i]['valor'];
-                        $imagem = $res[$i]['imagem'];
-                ?>
-                <div class="col-sm-3 mb-4">
-                    <div class="card rounded">
-                        <img src="<?php echo $imagem; ?>" class="card-img-top" alt="<?php echo $nome; ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $nome; ?></h5>
-                            <p class="card-text"><?php echo $descricao; ?></p>
-                            <p class="card-text">Preço: <span class="badge bg-secondary">R$: <?php echo $valor; ?></span></p>
-                        </div>
-                    </div>
-                </div>
-                <?php
-                        }
-                    }
-                else {
-                    $query = $pdo->query("SELECT * FROM produtos order by id desc ");
+
+                if(isset($_GET['search']) && ($_GET['search'] != "")){
+
+                    $searchTerm = $_GET['search'];
+                    $query = $pdo->prepare('SELECT * FROM produtos WHERE nome LIKE :searchTerm or categoria LIKE :searchTerm ORDER BY id DESC');
+                    $query->bindValue(':searchTerm', '%' . $searchTerm . '%', PDO::PARAM_STR);
+                    $query->execute();
+                    $res =$query->fetchAll(PDO::FETCH_ASSOC);
+
+                }
+                else{
+                    $query = $pdo->query("SELECT * FROM produtos ORDER BY id DESC ");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
         
-                    if (count($res) > 0) {
-                        foreach ($res as $key) {
-                        
+                    for ($i = 0; $i < count($res); $i++) {
+                        foreach ($res[$i] as $key => $value) {
+                        }
         
                         $id = $res[$i]['id'];
-                        $codigo = $res[$i]['codigo_gtin'];
+                        $codigo = $res[$i]['codGTIN'];
                         $nome = $res[$i]['nome'];
                         $quantidade = $res[$i]['quantidade'];
-                        $decricao = $res[$i]['descricao'];
                         $cor = $res[$i]['cor'];
                         $valor = $res[$i]['valor'];
                         $observacao = $res[$i]['observacao'];
                         $imagem = $res[$i]['imagem'];
-                        
-                    
                 ?>
-            
                 <div class="col-sm-3 mb-4">
                     <div class="card rounded">
-                        <img src="img/produtos/t-shirt-azul-faca-o-bem.jpeg" class="card-img-top" alt="t-shirt-azul-faca-o-bem">
+                        <img src="img/produtos/<?php echo $imagem; ?>" class="card-img-top" alt="<?php echo $nome; ?>">
                         <div class="card-body">
-                            <h5 class="card-title"> T-Shirt <span> Faça o bem</span></h5>
-                            <p class="card-text"> Descrição do Produto </p>
-                            <p class="card-text"> Preço: <span class="badge bg-secondary">R$: XX,XX</span></p>
+                            <h6 class="card-title"><?php echo $nome; ?></h6>
+                            <p class="badge bg-success mb-2">R$: <?php echo $valor; ?></p>
+                            <a href="#" class="btn text-primary fs-6"><i class='bx bx-cart-add' ></i></a>
                         </div>
                     </div>
                 </div>
               <?php 
-                    }
-                }else{
-                    echo "<p class='text-center my-5'>Nenhum produto encontrado.</p>";
-                }
             }
+                }
+
             ?>
             </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 sidebar">
             <div class="content-section my-5">
                 <h3>Novidades</h3>
-                <p class="text-muted small"> Acompanhe as novidades em postagens, anúncios e lançamentos da bem chique.</p>
+                <p class="text-muted small"><small>Acompanhe as novidades em postagens, anúncios e lançamentos da bem chique.</small></p>
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-light">Últimas Postagens</li>
                     <li class="list-group-item list-group-item-light">Anúncios</li>

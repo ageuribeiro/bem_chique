@@ -9,7 +9,7 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
 ?>
 <div class="mt-4 mb-4 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
     <div class="row mt-4 mb-4">
-        <a type="button" class="btn btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo"><i class='bx bx-plus' ></i> Nova Promoção <i class='bx bx-plus'></i></a>
+        <a type="button" class="btn btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo"><i class='bx bx-plus' ></i> Nova Promoção </a>
     </div>
 </div>
 <!-- DataTales Example -->

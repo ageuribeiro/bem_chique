@@ -7,7 +7,7 @@ html {
 }
 
 * {
-    font-size: 14px;
+    font-size: 16px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -140,12 +140,11 @@ html {
 }
 
 #about-text p::first-letter {
-    font-style: italic;
-    font-weight: 600;
+    font-style: normal;
+    font-weight: 400;
     text-transform: uppercase;
     font-size: 1.5rem;
-    color: #ECD6D9;
-    background-color: #B07A7A;
+    color: #B07A7A;
     padding: 5px;
     border-radius: 3px;
 }
@@ -154,9 +153,36 @@ html {
     object-fit: cover;
     width: 100%;
     margin: auto;
+
+
     display: block;
 }
 
-.target{
+.w-5 {
+    width: 5%;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.card {
+    height: 600px;
+
+
+}
+
+.card-img-top {
+    max-height: 200px;
+    object-position: top;
     object-fit: cover;
 }
+
+p.badge {
+    font-size: 14px;
+}
+
+.bg-body-bemchique {
+    background-color: #ECD6D9;
+}
+

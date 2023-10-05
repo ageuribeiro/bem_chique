@@ -1,10 +1,20 @@
-.direita{
-   position:absolute;
-   right:20px;
+.direita {
+   position: absolute;
+   right: 20px;
 }
 
-.topo{
-   position:absolute;
-   top:0px;
+.topo {
+   position: absolute;
+   top: 0px;
 }
 
+.target {
+   object-fit: cover;
+}
+
+.two-lines{
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+   overflow: hidden;
+}

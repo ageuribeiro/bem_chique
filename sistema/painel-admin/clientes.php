@@ -7,7 +7,7 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
     echo "<script language='javascript'> window.location='../index.php' </script>";
 }
 
-$query = $pdo->query("SELECT COUNT(*) AS SCORE FROM produtos");
+$query = $pdo->query("SELECT COUNT(*) AS SCORE FROM clientes");
 $score = $query->fetchColumn();
 ?>
 
@@ -24,16 +24,17 @@ $score = $query->fetchColumn();
     <table class="table table-striped table-sm" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
+                <th class="text-center">ID</th>
                 <th class="text-center">Nome</th>
-                <th class="text-center">Imagem</th>
-                <th class="text-center">Descrição</th>
+                <th class="text-center">CPF</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Senha</th>
                 <th class="text-center">Ações</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            $query = $pdo->query("SELECT * FROM categorias order by id desc ");
-
+            $query = $pdo->query("SELECT * FROM clientes order by id desc ");
             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
             for ($i = 0; $i < count($res); $i++) {
@@ -42,18 +43,19 @@ $score = $query->fetchColumn();
 
                 $id = $res[$i]['id'];
                 $nome = $res[$i]['nome'];
-                $decricao = $res[$i]['descricao'];
-                $imagem = $res[$i]['imagem'];
+                $cpf = $res[$i]['cpf'];
+                $email = $res[$i]['email'];
+                $senha = $res[$i]['senha'];
             ?>
                 <tr>
+                    <td class="text-center align-middle"><?php echo $id ?></td>
+                    <td class="text-center align-middle"><?php echo $nome ?></td>
+                    <td class="text-center align-middle"><?php echo $cpf ?></td>
+                    <td class="text-center align-middle"><?php echo $email ?></td>
+                    <td class="text-center align-middle"><?php echo $senha ?></td>
                     <td class="text-center align-middle">
-                        <?php echo $nome ?>
-                    </td>
-                    <td class="text-center align-middle"><img src="../painel-admin/img/categorias/<?php echo $imagem ?>" width="50" class="rounded"></td>
-                    <td class="text-center align-middle"><?php echo $decricao ?></td>
-                    <td class="text-center align-middle">
-                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='btn-bc-primary mr-1' title='Editar Dados'><i class='bx bxs-edit icon'></i></a>
-                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn-bc-danger mr-1' title='Excluir Registro'><i class='bx bx-trash icon'></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary m-2' title='Editar Dados'><i class='bx bxs-edit icon'></i></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger m-2' title='Excluir Registro'><i class='bx bx-trash icon'></i></a>
                     </td>
                 </tr>
             <?php } ?>

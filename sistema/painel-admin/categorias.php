@@ -21,7 +21,6 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
             <tr>
                 <th class="text-center" scope="col">Nome</th>
                 <th class="text-center" scope="col">Imagem</th>
-                <th class="text-center" scope="col">Data de Cadastro</th>
                 <th class="text-center" scope="col">Status</th>
                 <th class="text-center" scope="col">Ações</th>
             </tr>
@@ -31,7 +30,7 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
 
             <?php
 
-                $query = $pdo->query("SELECT * FROM categorias order by id desc ");
+                $query = $pdo->query("SELECT * FROM categorias order by id ASC ");
                 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                 for ($i = 0; $i < count($res); $i++) {
@@ -40,17 +39,16 @@ if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Owner') 
 
                     $nome = $res[$i]['nome'];
                     $imagem = $res[$i]['imagem'];
-                    $data = $res[$i]['data_registro'];
                     $status = $res[$i]['status'];
                     $id = $res[$i]['id'];
             ?>
 
 
                 <tr>
-                    <td><?php echo $nome ?></td>
-                    <td><?php echo $itens ?></td>
-                    <td><img src="../../img/categorias/<?php echo $imagem ?>" width="50"></td>
-                    <td>
+                    <td class="text-center fs-6" ><?php echo $nome ?></td>
+                    <td class="text-center fs-6" ><?php echo $status ?></td>
+                    <td class="text-center"><img src="../../img/categorias/<?php echo $imagem ?>" width="50"></td>
+                    <td class="text-center">
                         <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
                         <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
                     </td>
