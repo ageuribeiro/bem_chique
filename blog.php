@@ -3,9 +3,6 @@ include_once("cabecalho.php");
 require_once("conexao.php");
 require_once("config.php");
 ?>
-
-
-
 <body>
     <section>
         <div class="container">
@@ -134,9 +131,10 @@ require_once("config.php");
                                 $content = $res[$i]['content'];
                                 $author = $res[$i]['author'];
                                 $date = $res[$i]['date'];
+                                $url_article = $res[$i]['url_article'];
 
                             ?>
-                                <h2 class="display-5 link-body-emphasis mb-1"><?php echo $title ?></h2>
+                                <h2 class="display-5 link-body-emphasis mb-1" id="<?php echo $url_article ?>"><?php echo $title ?></h2>
                                 <p class="blog-post-meta"><?php echo $date ?> <a href="#"><?php echo $author ?></a></p>
 
                                 <p> <code> <?php echo $keywords ?></code></p>
@@ -171,12 +169,13 @@ require_once("config.php");
                                             }
                                             $title = $res[$i]['titulo'];
                                             $date = $res[$i]['date'];
+                                            $url_article = $res[$i]['url_article'];
 
                                             $formattedDate = date("F j, Y", strtotime($date));
 
                                     ?>
                                     <li>
-                                        <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                                        <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#<?php echo $url_article?>">
                                             <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
                                                 <rect width="100%" height="100%" fill="#777" />
                                             </svg>

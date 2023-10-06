@@ -18,17 +18,17 @@ require_once("config.php");
                         <div class="d-flex justify-content-center">
                             <ul class="navbar-nav mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link text-uppercase" href="./index.php">Inicio</a>
+                                    <a class="nav-link text-uppercase" href="/">Inicio</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-uppercase" href="./about.php">Sobre</a>
+                                    <a class="nav-link text-uppercase" href="about">Sobre</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-uppercase" href="blog.php">Blog</a>
+                                    <a class="nav-link text-uppercase" href="blog">Blog</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-uppercase" href="contatos.php">Contatos</a>
+                                    <a class="nav-link text-uppercase" href="contatos">Contatos</a>
                                 </li>
                             </ul>
                         </div>

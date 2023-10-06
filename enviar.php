@@ -1,26 +1,25 @@
 <?php
 require_once("conexao.php");
 
-if ($_POST['nome'] == "") {
-	echo 'Preencha o campo nome.';
-	exit();
-}
-
 if ($_POST['email'] == "") {
 	echo 'Preencha o campo email.';
 	exit();
 }
 
+if ($_POST['nome'] == "") {
+	echo 'Preencha o campo email.';
+	exit();
+}
+
 if ($_POST['telefone'] == "") {
-	echo 'Preencha o campo telefone.';
+	echo 'Preencha o campo nome.';
 	exit();
 }
 
 if ($_POST['mensagem'] == "") {
-	echo 'Preencha o campo Mensagem.';
+	echo 'Preencha o campo mensagem.';
 	exit();
 }
-
 $destinatario = $email;
 $assunto = $nome_loja . ' - Email da Loja';
 
@@ -46,6 +45,6 @@ if (@count($dados) == 0) {
 	$res->bindValue(":email", $_POST['email']);
 	$res->bindValue(":ativo", "Sim");
 	$res->execute();
-}else{
+} else {
 	echo 'Email já existe no banco de dados';
 }

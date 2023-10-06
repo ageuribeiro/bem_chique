@@ -2,9 +2,7 @@
 require_once("cabecalho.php");
 ?>
 
-<?php
-require_once("cabecalho-busca.php");
-?>
+
 
 
     <!-- Checkout Section Begin -->

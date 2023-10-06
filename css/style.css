@@ -9,7 +9,9 @@ html {
 * {
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
+    list-style: none;
 }
+
 
 .card {
     max-height: 300px;
@@ -153,8 +155,6 @@ html {
     object-fit: cover;
     width: 100%;
     margin: auto;
-
-
     display: block;
 }
 
@@ -166,18 +166,6 @@ html {
     width: 15%;
 }
 
-.card {
-    height: 600px;
-
-
-}
-
-.card-img-top {
-    max-height: 200px;
-    object-position: top;
-    object-fit: cover;
-}
-
 p.badge {
     font-size: 14px;
 }
@@ -186,3 +174,20 @@ p.badge {
     background-color: #ECD6D9;
 }
 
+.card {
+    max-height: 600px;
+
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-img-top {
+    max-height: 200px;
+    object-position: top;
+    object-fit: cover;
+    margin: auto;
+}

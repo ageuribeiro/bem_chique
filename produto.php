@@ -2,9 +2,6 @@
 require_once("cabecalho.php");
 ?>
 
-<?php
-    require_once("cabecalho-busca.php");
-?>
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">

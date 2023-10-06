@@ -43,8 +43,8 @@ include_once('base.php');
             <div class="col-lg-4 col-md-12">
                 <div class="d-block align-items-center justify-content-center">
                     <h6 class="my-5">Ainda não possui Cadastro?</h6>
-                    <p class="my-5">Insira seu email para se cadastrar em nosso site!!</p>
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    <p class="my-5">Insira seu email para receber newsletter.</p>
+                    <form action="enviar-footer.php" method="POST" enctype="multipart/form-data">
                         <div class="row mb-3">
                             <div class="col col-8">
                                 <input type="email" id="email-footer" name="email-footer" class="form-control bg-light opacity-50" placeholder="Insira seu Email" required>
